@@ -1,16 +1,25 @@
 import 'package:location/location.dart';
 
 class LocationService {
-  final location = Location();
+  final _location = Location();
 
-  Future<bool> serviceEnabled() async => location.serviceEnabled();
+  Future<bool> serviceEnabled() async => _location.serviceEnabled();
 
-  Future<void> requestService() async => location.requestService();
+  Future<void> requestService() async => _location.requestService();
 
   Future<bool> permissionGranted() async {
-    final permission = await location.hasPermission();
+    final permission = await _location.hasPermission();
     return permission == PermissionStatus.granted;
   }
 
-  Future<void> requestPermission() async => location.requestPermission();
+  Future<void> requestPermission() async => _location.requestPermission();
+
+  Future<(String?, LocationData?)> requestLocationData() async {
+    try {
+      final result = await _location.getLocation();
+      return (null, result);
+    } catch (e) {
+      return (e.toString(), null);
+    }
+  }
 }
