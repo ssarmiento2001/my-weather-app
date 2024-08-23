@@ -1,15 +1,16 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 class Weather {
-  final int id;
-  final String main;
-  final String description;
-  final String icon;
+  final int? id;
+  final String? main;
+  final String? description;
+  final String? icon;
   Weather({
-    required this.id,
-    required this.main,
-    required this.description,
-    required this.icon,
+    this.id,
+    this.main,
+    this.description,
+    this.icon,
   });
 
   Weather copyWith({
@@ -37,10 +38,11 @@ class Weather {
 
   factory Weather.fromMap(Map<String, dynamic> map) {
     return Weather(
-      id: map['id'] as int,
-      main: map['main'] as String,
-      description: map['description'] as String,
-      icon: map['icon'] as String,
+      id: map['id'] != null ? map['id'] as int : null,
+      main: map['main'] != null ? map['main'] as String : null,
+      description:
+          map['description'] != null ? map['description'] as String : null,
+      icon: map['icon'] != null ? map['icon'] as String : null,
     );
   }
 

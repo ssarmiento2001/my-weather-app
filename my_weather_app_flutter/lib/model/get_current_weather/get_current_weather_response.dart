@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+
 import 'package:my_weather_app_flutter/model/clouds.dart';
 import 'package:my_weather_app_flutter/model/coord.dart';
 import 'package:my_weather_app_flutter/model/main.dart';
@@ -10,42 +12,42 @@ import 'package:my_weather_app_flutter/model/weather.dart';
 import 'package:my_weather_app_flutter/model/wind.dart';
 
 class GetCurrentWeatherResponse {
-  final Coord coord;
-  final Weather weather;
-  final String base;
-  final Main main;
-  final int visibility;
-  final Wind wind;
-  final Clouds clouds;
-  final int dt;
-  final Sys sys;
-  final int timezone;
-  final int id;
-  final String name;
-  final int cod;
+  final Coord? coord;
+  final List<Weather>? weather;
+  final String? base;
+  final Main? main;
+  final int? visibility;
+  final Wind? wind;
+  final Clouds? clouds;
+  final int? dt;
+  final Sys? sys;
+  final int? timezone;
+  final int? id;
+  final String? name;
+  final int? cod;
   final RainOrSnow? rain;
   final RainOrSnow? snow;
   GetCurrentWeatherResponse({
-    required this.coord,
-    required this.weather,
-    required this.base,
-    required this.main,
-    required this.visibility,
-    required this.wind,
-    required this.clouds,
-    required this.dt,
-    required this.sys,
-    required this.timezone,
-    required this.id,
-    required this.name,
-    required this.cod,
+    this.coord,
+    this.weather,
+    this.base,
+    this.main,
+    this.visibility,
+    this.wind,
+    this.clouds,
+    this.dt,
+    this.sys,
+    this.timezone,
+    this.id,
+    this.name,
+    this.cod,
     this.rain,
     this.snow,
   });
 
   GetCurrentWeatherResponse copyWith({
     Coord? coord,
-    Weather? weather,
+    List<Weather>? weather,
     String? base,
     Main? main,
     int? visibility,
@@ -81,15 +83,15 @@ class GetCurrentWeatherResponse {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'coord': coord.toMap(),
-      'weather': weather.toMap(),
+      'coord': coord?.toMap(),
+      'weather': weather?.map((x) => x.toMap()).toList(),
       'base': base,
-      'main': main.toMap(),
+      'main': main?.toMap(),
       'visibility': visibility,
-      'wind': wind.toMap(),
-      'clouds': clouds.toMap(),
+      'wind': wind?.toMap(),
+      'clouds': clouds?.toMap(),
       'dt': dt,
-      'sys': sys.toMap(),
+      'sys': sys?.toMap(),
       'timezone': timezone,
       'id': id,
       'name': name,
@@ -101,19 +103,35 @@ class GetCurrentWeatherResponse {
 
   factory GetCurrentWeatherResponse.fromMap(Map<String, dynamic> map) {
     return GetCurrentWeatherResponse(
-      coord: Coord.fromMap(map['coord'] as Map<String, dynamic>),
-      weather: Weather.fromMap(map['weather'] as Map<String, dynamic>),
-      base: map['base'] as String,
-      main: Main.fromMap(map['main'] as Map<String, dynamic>),
-      visibility: map['visibility'] as int,
-      wind: Wind.fromMap(map['wind'] as Map<String, dynamic>),
-      clouds: Clouds.fromMap(map['clouds'] as Map<String, dynamic>),
-      dt: map['dt'] as int,
-      sys: Sys.fromMap(map['sys'] as Map<String, dynamic>),
-      timezone: map['timezone'] as int,
-      id: map['id'] as int,
-      name: map['name'] as String,
-      cod: map['cod'] as int,
+      coord: map['coord'] != null
+          ? Coord.fromMap(map['coord'] as Map<String, dynamic>)
+          : null,
+      weather: map['weather'] != null
+          ? List<Weather>.from(
+              (map['weather'] as List<dynamic>).map<Weather?>(
+                (x) => Weather.fromMap(x as Map<String, dynamic>),
+              ),
+            )
+          : null,
+      base: map['base'] != null ? map['base'] as String : null,
+      main: map['main'] != null
+          ? Main.fromMap(map['main'] as Map<String, dynamic>)
+          : null,
+      visibility: map['visibility'] != null ? map['visibility'] as int : null,
+      wind: map['wind'] != null
+          ? Wind.fromMap(map['wind'] as Map<String, dynamic>)
+          : null,
+      clouds: map['clouds'] != null
+          ? Clouds.fromMap(map['clouds'] as Map<String, dynamic>)
+          : null,
+      dt: map['dt'] != null ? map['dt'] as int : null,
+      sys: map['sys'] != null
+          ? Sys.fromMap(map['sys'] as Map<String, dynamic>)
+          : null,
+      timezone: map['timezone'] != null ? map['timezone'] as int : null,
+      id: map['id'] != null ? map['id'] as int : null,
+      name: map['name'] != null ? map['name'] as String : null,
+      cod: map['cod'] != null ? map['cod'] as int : null,
       rain: map['rain'] != null
           ? RainOrSnow.fromMap(map['rain'] as Map<String, dynamic>)
           : null,
@@ -139,7 +157,7 @@ class GetCurrentWeatherResponse {
     if (identical(this, other)) return true;
 
     return other.coord == coord &&
-        other.weather == weather &&
+        listEquals(other.weather, weather) &&
         other.base == base &&
         other.main == main &&
         other.visibility == visibility &&

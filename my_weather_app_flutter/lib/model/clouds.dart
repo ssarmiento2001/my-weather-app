@@ -2,9 +2,9 @@
 import 'dart:convert';
 
 class Clouds {
-  final int all;
+  final int? all;
   Clouds({
-    required this.all,
+    this.all,
   });
 
   Clouds copyWith({
@@ -23,7 +23,7 @@ class Clouds {
 
   factory Clouds.fromMap(Map<String, dynamic> map) {
     return Clouds(
-      all: map['all'] as int,
+      all: map['all'] != null ? map['all'] as int : null,
     );
   }
 

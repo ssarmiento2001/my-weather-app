@@ -2,11 +2,11 @@
 import 'dart:convert';
 
 class Coord {
-  final double lon;
-  final double lat;
+  final double? lon;
+  final double? lat;
   Coord({
-    required this.lon,
-    required this.lat,
+    this.lon,
+    this.lat,
   });
 
   Coord copyWith({
@@ -28,8 +28,8 @@ class Coord {
 
   factory Coord.fromMap(Map<String, dynamic> map) {
     return Coord(
-      lon: map['lon'] as double,
-      lat: map['lat'] as double,
+      lon: map['lon'] != null ? map['lon'] as double : null,
+      lat: map['lat'] != null ? map['lat'] as double : null,
     );
   }
 

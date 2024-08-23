@@ -2,23 +2,23 @@
 import 'dart:convert';
 
 class Main {
-  final double temp;
-  final double feelsLike;
-  final double tempMin;
-  final double tempMax;
-  final int pressure;
-  final int humidity;
-  final int seaLevel;
-  final int grndLevel;
+  final double? temp;
+  final double? feelsLike;
+  final double? tempMin;
+  final double? tempMax;
+  final int? pressure;
+  final int? humidity;
+  final int? seaLevel;
+  final int? grndLevel;
   Main({
-    required this.temp,
-    required this.feelsLike,
-    required this.tempMin,
-    required this.tempMax,
-    required this.pressure,
-    required this.humidity,
-    required this.seaLevel,
-    required this.grndLevel,
+    this.temp,
+    this.feelsLike,
+    this.tempMin,
+    this.tempMax,
+    this.pressure,
+    this.humidity,
+    this.seaLevel,
+    this.grndLevel,
   });
 
   Main copyWith({
@@ -46,26 +46,26 @@ class Main {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'temp': temp,
-      'feels_like': feelsLike,
-      'temp_min': tempMin,
-      'temp_max': tempMax,
+      'feelsLike': feelsLike,
+      'tempMin': tempMin,
+      'tempMax': tempMax,
       'pressure': pressure,
       'humidity': humidity,
-      'sea_level': seaLevel,
-      'grnd_level': grndLevel,
+      'seaLevel': seaLevel,
+      'grndLevel': grndLevel,
     };
   }
 
   factory Main.fromMap(Map<String, dynamic> map) {
     return Main(
-      temp: map['temp'] as double,
-      feelsLike: map['feels_like'] as double,
-      tempMin: map['temp_min'] as double,
-      tempMax: map['temp_max'] as double,
-      pressure: map['pressure'] as int,
-      humidity: map['humidity'] as int,
-      seaLevel: map['sea_level'] as int,
-      grndLevel: map['grnd_level'] as int,
+      temp: map['temp'] != null ? map['temp'] as double : null,
+      feelsLike: map['feelsLike'] != null ? map['feelsLike'] as double : null,
+      tempMin: map['tempMin'] != null ? map['tempMin'] as double : null,
+      tempMax: map['tempMax'] != null ? map['tempMax'] as double : null,
+      pressure: map['pressure'] != null ? map['pressure'] as int : null,
+      humidity: map['humidity'] != null ? map['humidity'] as int : null,
+      seaLevel: map['seaLevel'] != null ? map['seaLevel'] as int : null,
+      grndLevel: map['grndLevel'] != null ? map['grndLevel'] as int : null,
     );
   }
 
@@ -76,7 +76,7 @@ class Main {
 
   @override
   String toString() {
-    return 'Main(temp: $temp, feels_like: $feelsLike, temp_min: $tempMin, temp_max: $tempMax, pressure: $pressure, humidity: $humidity, sea_level: $seaLevel, grnd_level: $grndLevel)';
+    return 'Main(temp: $temp, feelsLike: $feelsLike, tempMin: $tempMin, tempMax: $tempMax, pressure: $pressure, humidity: $humidity, seaLevel: $seaLevel, grndLevel: $grndLevel)';
   }
 
   @override

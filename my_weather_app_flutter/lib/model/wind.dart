@@ -2,13 +2,13 @@
 import 'dart:convert';
 
 class Wind {
-  final double speed;
-  final int deg;
-  final double gust;
+  final double? speed;
+  final int? deg;
+  final double? gust;
   Wind({
-    required this.speed,
-    required this.deg,
-    required this.gust,
+    this.speed,
+    this.deg,
+    this.gust,
   });
 
   Wind copyWith({
@@ -33,9 +33,9 @@ class Wind {
 
   factory Wind.fromMap(Map<String, dynamic> map) {
     return Wind(
-      speed: map['speed'] as double,
-      deg: map['deg'] as int,
-      gust: map['gust'] as double,
+      speed: map['speed'] != null ? map['speed'] as double : null,
+      deg: map['deg'] != null ? map['deg'] as int : null,
+      gust: map['gust'] != null ? map['gust'] as double : null,
     );
   }
 

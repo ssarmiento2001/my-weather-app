@@ -2,14 +2,14 @@
 import 'dart:convert';
 
 class Sys {
-  final int type;
-  final int id;
-  final String country;
-  final int sunrise;
-  final int sunset;
+  final int? type;
+  final int? id;
+  final String? country;
+  final int? sunrise;
+  final int? sunset;
   Sys({
-    required this.type,
-    required this.id,
+    this.type,
+    this.id,
     required this.country,
     required this.sunrise,
     required this.sunset,
@@ -43,11 +43,11 @@ class Sys {
 
   factory Sys.fromMap(Map<String, dynamic> map) {
     return Sys(
-      type: map['type'] as int,
-      id: map['id'] as int,
-      country: map['country'] as String,
-      sunrise: map['sunrise'] as int,
-      sunset: map['sunset'] as int,
+      type: map['type'] != null ? map['type'] as int : null,
+      id: map['id'] != null ? map['id'] as int : null,
+      country: map['country'] != null ? map['country'] as String : null,
+      sunrise: map['sunrise'] != null ? map['sunrise'] as int : null,
+      sunset: map['sunset'] != null ? map['sunset'] as int : null,
     );
   }
 

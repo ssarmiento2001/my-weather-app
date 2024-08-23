@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
+import 'package:my_weather_app_flutter/model/enums/lang.dart';
+import 'package:my_weather_app_flutter/model/enums/mode.dart';
+import 'package:my_weather_app_flutter/model/enums/units.dart';
+import 'package:my_weather_app_flutter/model/get_current_weather/get_current_weather_request.dart';
 import 'package:my_weather_app_flutter/services/location_service.dart';
+import 'package:my_weather_app_flutter/services/open_weather_map_api.dart';
 
 void main() {
   runApp(const App());
@@ -33,9 +38,12 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final locationService = LocationService();
   String message = '';
+  bool requesting = false;
+  LocationData? locationData;
 
   Future<void> obtainLocationData() async {
     setState(() {
+      requesting = true;
       message = 'Getting Location Data...';
     });
 
@@ -55,8 +63,8 @@ class _MyHomePageState extends State<MyHomePage> {
         if (data.$1 != null) {
           message = 'Error obtaining data: ${data.$1}';
         } else {
-          message =
-              'latitude = ${data.$2?.latitude} longitude = ${data.$2?.longitude} ';
+          message = '';
+          locationData = data.$2;
         }
       } else {
         message = 'Permission was not granted';
@@ -64,7 +72,39 @@ class _MyHomePageState extends State<MyHomePage> {
     } else {
       message = 'Service is not enabled';
     }
-    setState(() {});
+    setState(() {
+      requesting = false;
+    });
+  }
+
+  Future<void> getCurrentWeather() async {
+    final api = OpenWeatherMapApi();
+    final request = GetCurrentWeatherRequest(
+      lat: locationData!.latitude ?? 0,
+      lon: locationData!.longitude ?? 0,
+      appid: 'db58f9b80807a12f6afb87b9f373036b',
+      mode: Mode.json,
+      units: Units.standard,
+      lang: Lang.english,
+    );
+
+    setState(() {
+      requesting = true;
+      message = 'Getting current weather...';
+    });
+
+    final result = await api.getCurrentWeather(request);
+
+    if (result.$1 != null) {
+      message = 'Error: ${result.$1}';
+    } else {
+      final weather = result.$2?.weather?.firstOrNull?.description;
+      message = weather ?? 'Success??';
+    }
+
+    setState(() {
+      requesting = false;
+    });
   }
 
   @override
@@ -81,9 +121,19 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               message,
             ),
+            Text(locationData != null
+                ? 'Latitude: ${locationData?.latitude} Longitude: ${locationData?.longitude}'
+                : 'No location Data available'),
             OutlinedButton(
-                onPressed: obtainLocationData,
-                child: const Text('Obtain Location Data'))
+              onPressed: requesting ? null : obtainLocationData,
+              child: const Text('Obtain Location Data'),
+            ),
+            OutlinedButton(
+              onPressed: locationData != null && !requesting
+                  ? getCurrentWeather
+                  : null,
+              child: const Text('Get current Weather'),
+            )
           ],
         ),
       ),
