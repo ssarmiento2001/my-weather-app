@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
-import 'package:my_weather_app_flutter/model/enums/exclude.dart';
-import 'package:my_weather_app_flutter/model/enums/units.dart';
-import 'package:my_weather_app_flutter/model/get_weather_request.dart';
 import 'package:my_weather_app_flutter/services/location_service.dart';
 
 void main() {
