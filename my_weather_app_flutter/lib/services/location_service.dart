@@ -5,14 +5,14 @@ class LocationService {
 
   Future<bool> serviceEnabled() async => _location.serviceEnabled();
 
-  Future<void> requestService() async => _location.requestService();
+  Future<bool> requestService() async => _location.requestService();
 
   Future<bool> permissionGranted() async {
     final permission = await _location.hasPermission();
     return permission == PermissionStatus.granted;
   }
 
-  Future<void> requestPermission() async => _location.requestPermission();
+  Future<PermissionStatus> requestPermission() async => _location.requestPermission();
 
   Future<(String?, LocationData?)> requestLocationData() async {
     try {

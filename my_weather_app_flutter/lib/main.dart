@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
 import 'package:my_weather_app_flutter/services/location_service.dart';
 
 void main() {
@@ -37,22 +38,27 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       message = 'Getting Location Data...';
     });
-    if (await locationService.serviceEnabled()) {
-      if (await locationService.permissionGranted()) {
+
+    final serviceEnabled = await locationService.serviceEnabled();
+    final serviceRequest = serviceEnabled ? true : await locationService.requestService();
+
+    if(serviceRequest){
+      final permissionGranted = await locationService.permissionGranted();
+      final permissionRequest = permissionGranted ? true : await locationService.requestPermission() == PermissionStatus.granted;
+
+      if(permissionRequest){
         final data = await locationService.requestLocationData();
         if (data.$1 != null) {
           message = 'Error obtaining data: ${data.$1}';
         } else {
           message =
-              'latitude = ${data.$2?.latitude} longitude = ${data.$2?.longitude} ';
+          'latitude = ${data.$2?.latitude} longitude = ${data.$2?.longitude} ';
         }
-      } else {
-        message = 'Permission was not granted, try again';
-        locationService.requestPermission();
+      }else{
+        message = 'Permission was not granted';
       }
-    } else {
-      message = 'Service was not enabled, try again';
-      locationService.requestService();
+    }else{
+      message = 'Service is not enabled';
     }
     setState(() {});
   }
