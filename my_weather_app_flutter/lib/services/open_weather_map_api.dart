@@ -1,22 +1,22 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:my_weather_app_flutter/model/get_weather_request.dart';
-import 'package:my_weather_app_flutter/model/get_weather_response.dart';
+import 'package:my_weather_app_flutter/model/get_current_weather/get_current_weather_request.dart';
+import 'package:my_weather_app_flutter/model/get_current_weather/get_current_weather_response.dart';
 
 class OpenWeatherMapApi {
-  Future<(String?, GetWeatherResponse?)> getCurrentWeather(
-      GetWeatherRequest request) async {
+  Future<(String?, GetCurrentWeatherResponse?)> getCurrentWeather(
+      GetCurrentWeatherRequest request) async {
     final client = http.Client();
     final uri = Uri.parse(
-        'https://api.openweathermap.org/data/2.5/weather?lat=${request.lat}&lon=${request.lon}&appid=${request.appid}');
+        'https://api.openweathermap.org/data/2.5/weather?lat=${request.lat}&lon=${request.lon}&appid=${request.appid}&mode=${request.mode.value}&units=${request.units.value}&lang=${request.lang}');
     final response = await client.get(uri);
 
     if (response.statusCode == 200) {
-      final getWeatherResponse = GetWeatherResponse.fromJson(
+      final getCurrentWeatherResponse = GetCurrentWeatherResponse.fromJson(
           const Utf8Decoder().convert(response.bodyBytes));
 
-      return (null, getWeatherResponse);
+      return (null, getCurrentWeatherResponse);
     } else {
       return (response.statusCode.toString(), null);
     }
