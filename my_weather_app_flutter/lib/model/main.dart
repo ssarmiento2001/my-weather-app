@@ -58,14 +58,30 @@ class Main {
 
   factory Main.fromMap(Map<String, dynamic> map) {
     return Main(
-      temp: map['temp'] != null ? map['temp'] as double : null,
-      feelsLike: map['feelsLike'] != null ? map['feelsLike'] as double : null,
-      tempMin: map['tempMin'] != null ? map['tempMin'] as double : null,
-      tempMax: map['tempMax'] != null ? map['tempMax'] as double : null,
-      pressure: map['pressure'] != null ? map['pressure'] as int : null,
-      humidity: map['humidity'] != null ? map['humidity'] as int : null,
-      seaLevel: map['seaLevel'] != null ? map['seaLevel'] as int : null,
-      grndLevel: map['grndLevel'] != null ? map['grndLevel'] as int : null,
+      temp: map['temp'] != null
+          ? double.tryParse(map['temp'].toString()) ?? 0
+          : null,
+      feelsLike: map['feelsLike'] != null
+          ? double.tryParse(map['feelsLike'].toString()) ?? 0
+          : null,
+      tempMin: map['tempMin'] != null
+          ? double.tryParse(map['tempMin'].toString()) ?? 0
+          : null,
+      tempMax: map['tempMax'] != null
+          ? double.tryParse(map['tempMax'].toString()) ?? 0
+          : null,
+      pressure: map['pressure'] != null
+          ? int.tryParse(map['pressure'].toString()) ?? 0
+          : null,
+      humidity: map['humidity'] != null
+          ? int.tryParse(map['humidity'].toString()) ?? 0
+          : null,
+      seaLevel: map['seaLevel'] != null
+          ? int.tryParse(map['seaLevel'].toString()) ?? 0
+          : null,
+      grndLevel: map['grndLevel'] != null
+          ? int.tryParse(map['grndLevel'].toString()) ?? 0
+          : null,
     );
   }
 

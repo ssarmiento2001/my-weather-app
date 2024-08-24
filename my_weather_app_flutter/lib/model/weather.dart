@@ -38,7 +38,7 @@ class Weather {
 
   factory Weather.fromMap(Map<String, dynamic> map) {
     return Weather(
-      id: map['id'] != null ? map['id'] as int : null,
+      id: map['id'] != null ? int.tryParse(map['id'].toString()) ?? 0 : null,
       main: map['main'] != null ? map['main'] as String : null,
       description:
           map['description'] != null ? map['description'] as String : null,

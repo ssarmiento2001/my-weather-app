@@ -4,6 +4,7 @@ import 'package:my_weather_app_flutter/model/enums/lang.dart';
 import 'package:my_weather_app_flutter/model/enums/mode.dart';
 import 'package:my_weather_app_flutter/model/enums/units.dart';
 import 'package:my_weather_app_flutter/model/get_current_weather/get_current_weather_request.dart';
+import 'package:my_weather_app_flutter/model/get_forecast/get_forecast_request.dart';
 import 'package:my_weather_app_flutter/services/location_service.dart';
 import 'package:my_weather_app_flutter/services/open_weather_map_api.dart';
 
@@ -40,6 +41,8 @@ class _MyHomePageState extends State<MyHomePage> {
   String message = '';
   bool requesting = false;
   LocationData? locationData;
+  final api = OpenWeatherMapApi();
+  static const String appid = 'db58f9b80807a12f6afb87b9f373036b';
 
   Future<void> obtainLocationData() async {
     setState(() {
@@ -78,11 +81,10 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> getCurrentWeather() async {
-    final api = OpenWeatherMapApi();
     final request = GetCurrentWeatherRequest(
       lat: locationData!.latitude ?? 0,
       lon: locationData!.longitude ?? 0,
-      appid: 'db58f9b80807a12f6afb87b9f373036b',
+      appid: appid,
       mode: Mode.json,
       units: Units.standard,
       lang: Lang.english,
@@ -99,7 +101,38 @@ class _MyHomePageState extends State<MyHomePage> {
       message = 'Error: ${result.$1}';
     } else {
       final weather = result.$2?.weather?.firstOrNull?.description;
-      message = weather ?? 'Success??';
+      message = weather ?? 'Current Weather Success??';
+    }
+
+    setState(() {
+      requesting = false;
+    });
+  }
+
+  Future<void> getForecast() async {
+    final request = GetForecastRequest(
+      lat: locationData!.latitude ?? 0,
+      lon: locationData!.longitude ?? 0,
+      appid: appid,
+      units: Units.standard,
+      mode: Mode.json,
+      cnt: 1,
+      lang: Lang.english,
+    );
+
+    setState(() {
+      requesting = true;
+      message = 'Getting Forecast...';
+    });
+
+    final result = await api.getForecast(request);
+
+    if (result.$1 != null) {
+      message = 'Error: ${result.$1}';
+    } else {
+      final weather =
+          result.$2?.list.firstOrNull?.weather?.firstOrNull?.description;
+      message = weather ?? 'Forecast Success??';
     }
 
     setState(() {
@@ -126,13 +159,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 : 'No location Data available'),
             OutlinedButton(
               onPressed: requesting ? null : obtainLocationData,
-              child: const Text('Obtain Location Data'),
+              child: const Text('Obtain location data'),
             ),
             OutlinedButton(
               onPressed: locationData != null && !requesting
                   ? getCurrentWeather
                   : null,
-              child: const Text('Get current Weather'),
+              child: const Text('Get current weather'),
+            ),
+            OutlinedButton(
+              onPressed:
+                  locationData != null && !requesting ? getForecast : null,
+              child: const Text('Get forecast'),
             )
           ],
         ),

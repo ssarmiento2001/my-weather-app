@@ -117,21 +117,25 @@ class GetCurrentWeatherResponse {
       main: map['main'] != null
           ? Main.fromMap(map['main'] as Map<String, dynamic>)
           : null,
-      visibility: map['visibility'] != null ? map['visibility'] as int : null,
+      visibility: map['visibility'] != null
+          ? int.tryParse(map['visibility'].toString()) ?? 0
+          : null,
       wind: map['wind'] != null
           ? Wind.fromMap(map['wind'] as Map<String, dynamic>)
           : null,
       clouds: map['clouds'] != null
           ? Clouds.fromMap(map['clouds'] as Map<String, dynamic>)
           : null,
-      dt: map['dt'] != null ? map['dt'] as int : null,
+      dt: map['dt'] != null ? int.tryParse(map['dt'].toString()) ?? 0 : null,
       sys: map['sys'] != null
           ? Sys.fromMap(map['sys'] as Map<String, dynamic>)
           : null,
-      timezone: map['timezone'] != null ? map['timezone'] as int : null,
-      id: map['id'] != null ? map['id'] as int : null,
+      timezone: map['timezone'] != null
+          ? int.tryParse(map['timezone'].toString()) ?? 0
+          : null,
+      id: map['id'] != null ? int.tryParse(map['id'].toString()) ?? 0 : null,
       name: map['name'] != null ? map['name'] as String : null,
-      cod: map['cod'] != null ? map['cod'] as int : null,
+      cod: map['cod'] != null ? int.tryParse(map['cod'].toString()) ?? 0 : null,
       rain: map['rain'] != null
           ? RainOrSnow.fromMap(map['rain'] as Map<String, dynamic>)
           : null,

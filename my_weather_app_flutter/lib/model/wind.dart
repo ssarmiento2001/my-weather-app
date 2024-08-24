@@ -33,9 +33,13 @@ class Wind {
 
   factory Wind.fromMap(Map<String, dynamic> map) {
     return Wind(
-      speed: map['speed'] != null ? map['speed'] as double : null,
-      deg: map['deg'] != null ? map['deg'] as int : null,
-      gust: map['gust'] != null ? map['gust'] as double : null,
+      speed: map['speed'] != null
+          ? double.tryParse(map['speed'].toString()) ?? 0
+          : null,
+      deg: map['deg'] != null ? int.tryParse(map['deg'].toString()) ?? 0 : null,
+      gust: map['gust'] != null
+          ? double.tryParse(map['gust'].toString()) ?? 0
+          : null,
     );
   }
 

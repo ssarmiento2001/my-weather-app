@@ -28,8 +28,12 @@ class Coord {
 
   factory Coord.fromMap(Map<String, dynamic> map) {
     return Coord(
-      lon: map['lon'] != null ? map['lon'] as double : null,
-      lat: map['lat'] != null ? map['lat'] as double : null,
+      lon: map['lon'] != null
+          ? double.tryParse(map['lon'].toString()) ?? 0
+          : null,
+      lat: map['lat'] != null
+          ? double.tryParse(map['lat'].toString()) ?? 0
+          : null,
     );
   }
 

@@ -23,7 +23,7 @@ class Clouds {
 
   factory Clouds.fromMap(Map<String, dynamic> map) {
     return Clouds(
-      all: map['all'] != null ? map['all'] as int : null,
+      all: map['all'] != null ? int.tryParse(map['all'].toString()) ?? 0 : null,
     );
   }
 

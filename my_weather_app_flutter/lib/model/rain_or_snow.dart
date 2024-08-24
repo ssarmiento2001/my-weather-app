@@ -28,8 +28,10 @@ class RainOrSnow {
 
   factory RainOrSnow.fromMap(Map<String, dynamic> map) {
     return RainOrSnow(
-      oneH: map['1h'] != null ? map['1h'] as double : null,
-      threeH: map['3h'] != null ? map['3h'] as double : null,
+      oneH:
+          map['1h'] != null ? double.tryParse(map['1h'].toString()) ?? 0 : null,
+      threeH:
+          map['3h'] != null ? double.tryParse(map['3h'].toString()) ?? 0 : null,
     );
   }
 

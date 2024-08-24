@@ -43,11 +43,17 @@ class Sys {
 
   factory Sys.fromMap(Map<String, dynamic> map) {
     return Sys(
-      type: map['type'] != null ? map['type'] as int : null,
-      id: map['id'] != null ? map['id'] as int : null,
+      type: map['type'] != null
+          ? int.tryParse(map['type'].toString()) ?? 0
+          : null,
+      id: map['id'] != null ? int.tryParse(map['id'].toString()) ?? 0 : null,
       country: map['country'] != null ? map['country'] as String : null,
-      sunrise: map['sunrise'] != null ? map['sunrise'] as int : null,
-      sunset: map['sunset'] != null ? map['sunset'] as int : null,
+      sunrise: map['sunrise'] != null
+          ? int.tryParse(map['sunrise'].toString()) ?? 0
+          : null,
+      sunset: map['sunset'] != null
+          ? int.tryParse(map['sunset'].toString()) ?? 0
+          : null,
     );
   }
 
