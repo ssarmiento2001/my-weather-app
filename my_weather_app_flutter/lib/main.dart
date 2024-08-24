@@ -7,27 +7,36 @@ import 'package:my_weather_app_flutter/model/get_current_weather/get_current_wea
 import 'package:my_weather_app_flutter/model/get_forecast/get_forecast_request.dart';
 import 'package:my_weather_app_flutter/services/location_service.dart';
 import 'package:my_weather_app_flutter/services/open_weather_map_api.dart';
+import 'package:my_weather_app_flutter/view/home_page_view/home_page_view.dart';
 import 'package:my_weather_app_flutter/view/sample_view.dart';
 
 void main() {
-  runApp(const App());
+  runApp(App());
 }
 
 class App extends StatelessWidget {
-  const App({super.key});
+  App({super.key});
+
+  final locationService = LocationService();
+  final openWeatherMapApi = OpenWeatherMapApi();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'My Weather App',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: Theme.of(context).colorScheme,
         useMaterial3: true,
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => const HomePageExample(title: 'Home page example'),
-        '/sample': (context) => const SampleView(),
+        '/': (context) => HomePageView(
+              locationService: locationService,
+              openWeatherMapApi: openWeatherMapApi,
+            ),
+        '/sample': (context) => const SampleView(
+              message: 'sample',
+            ),
       },
     );
   }
