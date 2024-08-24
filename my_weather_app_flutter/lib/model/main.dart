@@ -46,13 +46,13 @@ class Main {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'temp': temp,
-      'feelsLike': feelsLike,
-      'tempMin': tempMin,
-      'tempMax': tempMax,
+      'feels_like': feelsLike,
+      'temp_min': tempMin,
+      'temp_max': tempMax,
       'pressure': pressure,
       'humidity': humidity,
-      'seaLevel': seaLevel,
-      'grndLevel': grndLevel,
+      'sea_level': seaLevel,
+      'grnd_level': grndLevel,
     };
   }
 
@@ -61,14 +61,14 @@ class Main {
       temp: map['temp'] != null
           ? double.tryParse(map['temp'].toString()) ?? 0
           : null,
-      feelsLike: map['feelsLike'] != null
-          ? double.tryParse(map['feelsLike'].toString()) ?? 0
+      feelsLike: map['feels_like'] != null
+          ? double.tryParse(map['feels_like'].toString()) ?? 0
           : null,
-      tempMin: map['tempMin'] != null
-          ? double.tryParse(map['tempMin'].toString()) ?? 0
+      tempMin: map['temp_min'] != null
+          ? double.tryParse(map['temp_min'].toString()) ?? 0
           : null,
-      tempMax: map['tempMax'] != null
-          ? double.tryParse(map['tempMax'].toString()) ?? 0
+      tempMax: map['temp_max'] != null
+          ? double.tryParse(map['temp_max'].toString()) ?? 0
           : null,
       pressure: map['pressure'] != null
           ? int.tryParse(map['pressure'].toString()) ?? 0
@@ -76,11 +76,11 @@ class Main {
       humidity: map['humidity'] != null
           ? int.tryParse(map['humidity'].toString()) ?? 0
           : null,
-      seaLevel: map['seaLevel'] != null
-          ? int.tryParse(map['seaLevel'].toString()) ?? 0
+      seaLevel: map['sea_level'] != null
+          ? int.tryParse(map['sea_level'].toString()) ?? 0
           : null,
-      grndLevel: map['grndLevel'] != null
-          ? int.tryParse(map['grndLevel'].toString()) ?? 0
+      grndLevel: map['grnd_level'] != null
+          ? int.tryParse(map['grnd_level'].toString()) ?? 0
           : null,
     );
   }

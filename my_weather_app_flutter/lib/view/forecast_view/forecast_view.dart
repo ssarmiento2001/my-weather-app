@@ -6,6 +6,7 @@ import 'package:my_weather_app_flutter/bloc/forecast_bloc/forecast_state.dart';
 import 'package:my_weather_app_flutter/services/open_weather_map_api.dart';
 import 'package:my_weather_app_flutter/utils/constants.dart';
 import 'package:my_weather_app_flutter/utils/failure.dart';
+import 'package:my_weather_app_flutter/view/forecast_view/showing_forecast_view.dart';
 import 'package:my_weather_app_flutter/view/home_page_view/loading_view.dart';
 import 'package:my_weather_app_flutter/view/home_page_view/showing_failure_view.dart';
 
@@ -47,7 +48,7 @@ class ForecastView extends StatelessWidget {
                   }
                 case ShowingForecastState _:
                   {
-                    return Text('Forecast view!');
+                    return ShowingForecastView(data: state.forecastData);
                   }
                 default:
                   {
