@@ -78,7 +78,7 @@ class HomePageCubit extends Cubit<HomePageState> {
       lon: data.longitude ?? 0,
       appid: Constants.appid,
       mode: Mode.json,
-      units: Units.standard,
+      units: Units.metric,
       lang: Lang.espanol,
     );
 
@@ -103,5 +103,16 @@ class HomePageCubit extends Cubit<HomePageState> {
 
   Future<void> _emitLoadingState(String message) async {
     return emit(LoadingState(message: message));
+  }
+
+  Future<void> refresh() async {
+    switch (state) {
+      case ShowingWeatherState _:
+        {
+          emit(InitializingState());
+          return _initialize();
+        }
+      default:
+    }
   }
 }

@@ -7,4 +7,5 @@ class Constants {
   static const String locationPermissionDenied =
       'Location permission not granted by user';
   static const String requestingWeatherData = 'Requesting weather data...';
+  static const String showingFailureTitle = 'Failure';
 }

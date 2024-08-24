@@ -7,8 +7,8 @@ import 'package:my_weather_app_flutter/model/get_current_weather/get_current_wea
 import 'package:my_weather_app_flutter/model/get_forecast/get_forecast_request.dart';
 import 'package:my_weather_app_flutter/services/location_service.dart';
 import 'package:my_weather_app_flutter/services/open_weather_map_api.dart';
+import 'package:my_weather_app_flutter/utils/routes.dart';
 import 'package:my_weather_app_flutter/view/home_page_view/home_page_view.dart';
-import 'package:my_weather_app_flutter/view/sample_view.dart';
 
 void main() {
   runApp(App());
@@ -28,14 +28,11 @@ class App extends StatelessWidget {
         colorScheme: Theme.of(context).colorScheme,
         useMaterial3: true,
       ),
-      initialRoute: '/',
+      initialRoute: Routes.homePageRoute,
       routes: {
-        '/': (context) => HomePageView(
+        Routes.homePageRoute: (context) => HomePageView(
               locationService: locationService,
               openWeatherMapApi: openWeatherMapApi,
-            ),
-        '/sample': (context) => const SampleView(
-              message: 'sample',
             ),
       },
     );
