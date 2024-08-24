@@ -6,6 +6,7 @@ import 'package:my_weather_app_flutter/services/location_service.dart';
 import 'package:my_weather_app_flutter/services/open_weather_map_api.dart';
 import 'package:my_weather_app_flutter/utils/constants.dart';
 import 'package:my_weather_app_flutter/utils/failure.dart';
+import 'package:my_weather_app_flutter/utils/routes.dart';
 import 'package:my_weather_app_flutter/view/home_page_view/initializing_view.dart';
 import 'package:my_weather_app_flutter/view/home_page_view/loading_view.dart';
 import 'package:my_weather_app_flutter/view/home_page_view/showing_failure_view.dart';
@@ -44,11 +45,12 @@ class HomePageView extends StatelessWidget {
                 ),
               )),
           Padding(
-              padding: const EdgeInsets.only(right: 20.0),
-              child: GestureDetector(
-                onTap: () {},
-                child: const Icon(Icons.more_vert),
-              )),
+            padding: const EdgeInsets.only(right: 20.0),
+            child: GestureDetector(
+              onTap: () {},
+              child: const Icon(Icons.more_vert),
+            ),
+          ),
         ],
       ),
       body: Center(
@@ -73,7 +75,16 @@ class HomePageView extends StatelessWidget {
                   }
                 case ShowingWeatherState _:
                   {
-                    return ShowingWeatherView(data: state.weatherData);
+                    return ShowingWeatherView(
+                      data: state.weatherData,
+                      onButtonPushed: () {
+                        Navigator.pushNamed(
+                          context,
+                          Routes.forecastRoute,
+                          arguments: state.locationData,
+                        );
+                      },
+                    );
                   }
                 default:
                   {

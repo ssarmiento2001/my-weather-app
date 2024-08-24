@@ -90,7 +90,10 @@ class HomePageCubit extends Cubit<HomePageState> {
       );
     } else {
       return result.$2 != null
-          ? emit(ShowingWeatherState(weatherData: result.$2!))
+          ? emit(ShowingWeatherState(
+              weatherData: result.$2!,
+              locationData: data,
+            ))
           : emitFailureState(DefaultFailure());
     }
   }

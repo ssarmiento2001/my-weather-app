@@ -8,6 +8,7 @@ import 'package:my_weather_app_flutter/model/get_forecast/get_forecast_request.d
 import 'package:my_weather_app_flutter/services/location_service.dart';
 import 'package:my_weather_app_flutter/services/open_weather_map_api.dart';
 import 'package:my_weather_app_flutter/utils/routes.dart';
+import 'package:my_weather_app_flutter/view/forecast_view/forecast_view.dart';
 import 'package:my_weather_app_flutter/view/home_page_view/home_page_view.dart';
 
 void main() {
@@ -34,6 +35,8 @@ class App extends StatelessWidget {
               locationService: locationService,
               openWeatherMapApi: openWeatherMapApi,
             ),
+        Routes.forecastRoute: (context) =>
+            ForecastView(openWeatherMapApi: openWeatherMapApi),
       },
     );
   }

@@ -6,9 +6,11 @@ class ShowingWeatherView extends StatelessWidget {
   const ShowingWeatherView({
     super.key,
     required this.data,
+    required this.onButtonPushed,
   });
 
   final GetCurrentWeatherResponse data;
+  final VoidCallback onButtonPushed;
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +72,7 @@ class ShowingWeatherView extends StatelessWidget {
                 backgroundColor:
                     WidgetStatePropertyAll(theme.colorScheme.onPrimary),
               ),
-              onPressed: () {},
+              onPressed: onButtonPushed,
               icon: Icon(
                 Icons.date_range,
                 color: theme.colorScheme.primary,
