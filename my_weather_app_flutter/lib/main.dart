@@ -7,6 +7,7 @@ import 'package:my_weather_app_flutter/model/get_current_weather/get_current_wea
 import 'package:my_weather_app_flutter/model/get_forecast/get_forecast_request.dart';
 import 'package:my_weather_app_flutter/services/location_service.dart';
 import 'package:my_weather_app_flutter/services/open_weather_map_api.dart';
+import 'package:my_weather_app_flutter/view/sample_view.dart';
 
 void main() {
   runApp(const App());
@@ -23,20 +24,24 @@ class App extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'My Weather App Home Page'),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const HomePageExample(title: 'Home page example'),
+        '/sample': (context) => const SampleView(),
+      },
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class HomePageExample extends StatefulWidget {
+  const HomePageExample({super.key, required this.title});
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<HomePageExample> createState() => _HomePageExampleState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomePageExampleState extends State<HomePageExample> {
   final locationService = LocationService();
   String message = '';
   bool requesting = false;
@@ -171,7 +176,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed:
                   locationData != null && !requesting ? getForecast : null,
               child: const Text('Get forecast'),
-            )
+            ),
           ],
         ),
       ),
