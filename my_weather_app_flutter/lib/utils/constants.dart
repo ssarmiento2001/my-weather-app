@@ -8,4 +8,5 @@ class Constants {
       'Location permission not granted by user';
   static const String requestingWeatherData = 'Requesting weather data...';
   static const String showingFailureTitle = 'Failure';
+  static const String forecastButtonText = 'Forecast';
 }

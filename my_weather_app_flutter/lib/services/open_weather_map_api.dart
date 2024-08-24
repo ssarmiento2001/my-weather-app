@@ -11,7 +11,7 @@ class OpenWeatherMapApi {
       GetCurrentWeatherRequest request) async {
     final client = http.Client();
     final uri = Uri.parse(
-        'https://api.openweathermap.org/data/2.5/weather?lat=${request.lat}&lon=${request.lon}&appid=${request.appid}&mode=${request.mode.value}&units=${request.units.value}&lang=${request.lang}');
+        'https://api.openweathermap.org/data/2.5/weather?lat=${request.lat}&lon=${request.lon}&appid=${request.appid}&mode=${request.mode.value}&units=${request.units.value}&lang=${request.lang.value}');
 
     print(uri);
     final response = await client.get(uri);
