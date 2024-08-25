@@ -13,7 +13,6 @@ class OpenWeatherMapApi {
     final uri = Uri.parse(
         'https://api.openweathermap.org/data/2.5/weather?lat=${request.lat}&lon=${request.lon}&appid=${request.appid}&mode=${request.mode.value}&units=${request.units.value}&lang=${request.lang.value}');
 
-    print(uri);
     final response = await client.get(uri);
 
     if (response.statusCode == 200) {
@@ -33,7 +32,6 @@ class OpenWeatherMapApi {
     final uri = Uri.parse(
         'https://api.openweathermap.org/data/2.5/forecast?lat=${request.lat}&lon=${request.lon}&cnt=${request.cnt}&appid=${request.appid}&mode=${request.mode.value}&units=${request.units.value}&lang=${request.lang.value}');
 
-    print(uri);
     final response = await client.get(uri);
 
     if (response.statusCode == 200) {
