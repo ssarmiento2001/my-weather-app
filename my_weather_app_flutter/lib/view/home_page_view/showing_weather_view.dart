@@ -22,21 +22,29 @@ class ShowingWeatherView extends StatelessWidget {
         children: [
           Expanded(
             child: Container(
-              width: mediaQuery.size.width,
-              child: Card(
-                color: theme.primaryColor,
-                child: orientation == Orientation.portrait
-                    ? PortraitContent(
-                        data: data,
-                        theme: theme,
-                        iconSize: iconSize,
-                        onButtonPushed: onButtonPushed)
-                    : LandscapeContent(
-                        data: data,
-                        theme: theme,
-                        iconSize: iconSize,
-                        onButtonPushed: onButtonPushed),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    theme.primaryColor,
+                    theme.primaryColorDark,
+                    theme.primaryColor,
+                  ],
+                ),
               ),
+              width: mediaQuery.size.width,
+              child: orientation == Orientation.portrait
+                  ? PortraitContent(
+                      data: data,
+                      theme: theme,
+                      iconSize: iconSize,
+                      onButtonPushed: onButtonPushed)
+                  : LandscapeContent(
+                      data: data,
+                      theme: theme,
+                      iconSize: iconSize,
+                      onButtonPushed: onButtonPushed),
             ),
           ),
         ],
@@ -229,12 +237,12 @@ class WeatherChart extends StatelessWidget {
                 Text(
                   'Max: ${data.main?.tempMax ?? '0'}° ',
                   style: theme.textTheme.displaySmall
-                      ?.copyWith(color: Colors.redAccent),
+                      ?.copyWith(color: theme.colorScheme.onPrimary),
                 ),
                 Text(
                   'Min: ${data.main?.tempMin ?? '0'}°',
                   style: theme.textTheme.displaySmall
-                      ?.copyWith(color: Colors.lightBlue),
+                      ?.copyWith(color: theme.colorScheme.onPrimary),
                 ),
               ],
             ),
