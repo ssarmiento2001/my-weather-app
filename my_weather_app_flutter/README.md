@@ -42,7 +42,7 @@ Finally, if the application is installed and run successfully in the device, the
 
 ### Configuration
 
-You can change the [OpenWeatherMap API](https://openweathermap.org/current) key by changing the value of the constant `appid` located in libs/utils/constants.dart
+You can change the [OpenWeatherMap API](https://openweathermap.org/current) key by changing the value of the constant `appid` located in lib/utils/constants.dart
 
 
 
