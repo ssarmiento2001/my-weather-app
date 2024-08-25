@@ -7,7 +7,7 @@ class Constants {
   static const String invalidState = 'Invalid state failure';
   static const String locationServiceUnenabled = 'Location service not enabled';
   static const String locationPermissionDenied =
-      'Location permission not granted by user';
+      'Location permission not granted by user. You\'ll have to do it manually from your device\'s settings.';
   static const String requestingWeatherData = 'Requesting weather data...';
   static const String showingFailureTitle = 'Failure';
   static const String forecastButtonText = 'Forecast';
