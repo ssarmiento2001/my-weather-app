@@ -44,7 +44,26 @@ Finally, if the application is installed and run successfully in the device, the
 
 You can change the [OpenWeatherMap API](https://openweathermap.org/current) key by changing the value of the constant `appid` located in lib/utils/constants.dart
 
+## Screenshots
 
+### Splash screen
+![Captura de pantalla 2024-08-25 103718](https://github.com/user-attachments/assets/c4bb09f3-7338-49c5-b20d-0c489fb07edc)
 
+### Location permission request
+![Captura de pantalla 2024-08-25 103733](https://github.com/user-attachments/assets/9cda8b18-7428-4ed4-a0a8-4f03cfcdbf17)
 
+### Loading screen
+![Captura de pantalla 2024-08-25 104408](https://github.com/user-attachments/assets/5470d029-2682-4c43-93ee-d79c991b172a)
+
+### Failure screen
+![Captura de pantalla 2024-08-25 103848](https://github.com/user-attachments/assets/57991e20-30a3-47f6-afb1-2dae4a1ab6ae)
+
+### Homepage screen (current weather)
+![Captura de pantalla 2024-08-25 104106](https://github.com/user-attachments/assets/f3a08592-0c32-48ca-9c15-d9a58a01c1d4)
+
+### Homepage screen landscape
+![Captura de pantalla 2024-08-25 104130](https://github.com/user-attachments/assets/eacc34d1-e512-455c-a9f8-702da6d914ea)
+
+### Forecast screen
+![Captura de pantalla 2024-08-25 114053](https://github.com/user-attachments/assets/e08aaa47-d41b-4327-8921-cc5a1a6cde9a)
 
