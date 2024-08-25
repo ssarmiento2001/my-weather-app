@@ -46,7 +46,7 @@ class ForecastCubit extends Cubit<ForecastState> {
       appid: Constants.appid,
       units: Units.metric,
       mode: Mode.json,
-      cnt: 23,
+      cnt: 24,
       lang: Lang.espanol,
     );
 

@@ -9,22 +9,22 @@ class ShowingForecastView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    var currDay = '';
+    var initialTime = '00:00:00';
     final items = data.list.map(
       (e) {
         final weather = e.weather?.firstOrNull;
         final dtTxt = e.dtTxt?.split(' ') ?? [];
-        final day = dtTxt.length == 2 ? dtTxt.first : 'Day';
-        final time = dtTxt.length == 2 ? dtTxt.last : 'Time';
+        final day = dtTxt.length == 2 ? dtTxt.first : 'err';
+        final time = dtTxt.length == 2 ? dtTxt.last : 'err';
         final item = ForecastListItem(
-          time: time,
-          icon: weather?.icon ?? 'icon',
-          description: weather?.description ?? 'description',
+          time: '$initialTime-$time',
+          icon: weather?.icon ?? 'err',
+          description: weather?.description ?? 'err',
           tempMin: '${e.main?.tempMin.toString() ?? '0'}°',
           tempMax: '${e.main?.tempMax.toString() ?? '0'}°',
         );
-        if (currDay != day) {
-          currDay = day;
+        initialTime = time;
+        if (time == '03:00:00') {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
