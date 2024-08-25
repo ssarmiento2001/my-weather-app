@@ -6,11 +6,9 @@ class ShowingForecastView extends StatelessWidget {
   final GetForecastResponse data;
   ShowingForecastView({super.key, required this.data});
 
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+  List<Widget> _getListItems(ThemeData theme) {
     var initialTime = '00:00:00';
-    final items = data.list.map(
+    return data.list.map(
       (e) {
         final weather = e.weather?.firstOrNull;
         final dtTxt = e.dtTxt?.split(' ') ?? [];
@@ -43,6 +41,12 @@ class ShowingForecastView extends StatelessWidget {
         }
       },
     ).toList();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final items = _getListItems(theme);
     return Expanded(
       child: ListView.builder(
         itemCount: items.length,
