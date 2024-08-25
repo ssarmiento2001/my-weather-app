@@ -38,7 +38,7 @@ Use the following command to build and run the app in debug mode:
 ```
 flutter run
 ```
-Finally, if the application is installed and run succesfully in the device, the first thing it will propt is a permission request to access the device location. You must accept to continue.
+Finally, if the application is installed and run successfully in the device, the first thing it will prompt is a permission request to access the device location. You must accept to continue.
 
 ### Configuration
 
