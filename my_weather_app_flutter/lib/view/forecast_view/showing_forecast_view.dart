@@ -47,13 +47,17 @@ class ShowingForecastView extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final items = _getListItems(theme);
-    return Expanded(
-      child: ListView.builder(
-        itemCount: items.length,
-        itemBuilder: (context, index) {
-          return items[index];
-        },
-      ),
+    return Column(
+      children: [
+        Expanded(
+          child: ListView.builder(
+            itemCount: items.length,
+            itemBuilder: (context, index) {
+              return items[index];
+            },
+          ),
+        ),
+      ],
     );
   }
 }
