@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:my_weather_app_flutter/utils/assets.dart';
 
 class ForecastListItem extends StatelessWidget {
   ForecastListItem({
@@ -37,7 +38,7 @@ class ForecastListItem extends StatelessWidget {
                 height: iconSize,
                 width: iconSize,
                 child: FadeInImage.assetNetwork(
-                  placeholder: 'assets/img/weather-icon.png',
+                  placeholder: Assets.placeholderImage,
                   image: 'https://openweathermap.org/img/wn/$icon@2x.png',
                   fit: BoxFit.contain,
                 ),

@@ -79,7 +79,7 @@ class HomePageCubit extends Cubit<HomePageState> {
       appid: Constants.appid,
       mode: Mode.json,
       units: Units.metric,
-      lang: Lang.espanol,
+      lang: Lang.english,
     );
 
     final result = await _openWeatherMapApi.getCurrentWeather(request);

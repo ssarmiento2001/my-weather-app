@@ -47,7 +47,7 @@ class ForecastCubit extends Cubit<ForecastState> {
       units: Units.metric,
       mode: Mode.json,
       cnt: 24,
-      lang: Lang.espanol,
+      lang: Lang.english,
     );
 
     final result = await _openWeatherMapApi.getForecast(request);

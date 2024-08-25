@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_weather_app_flutter/model/get_forecast/get_forecast_response.dart';
+import 'package:my_weather_app_flutter/utils/constants.dart';
 import 'package:my_weather_app_flutter/view/widgets/forecast_list_item.dart';
 
 class ShowingForecastView extends StatelessWidget {
@@ -16,14 +17,16 @@ class ShowingForecastView extends StatelessWidget {
 
         final weather = val.weather?.firstOrNull;
         final dtTxt = val.dtTxt?.split(' ') ?? [];
-        final day = dtTxt.length == 2 ? dtTxt.first : 'err';
-        final time = dtTxt.length == 2 ? dtTxt.last : 'err';
+        final day =
+            dtTxt.length == 2 ? dtTxt.first : Constants.resourceNotFound;
+        final time =
+            dtTxt.length == 2 ? dtTxt.last : Constants.resourceNotFound;
         final item = ForecastListItem(
           time: '$initialTime-$time',
-          icon: weather?.icon ?? 'err',
-          description: weather?.description ?? 'err',
-          tempMin: '${val.main?.tempMin.toString() ?? '0'}°',
-          tempMax: '${val.main?.tempMax.toString() ?? '0'}°',
+          icon: weather?.icon ?? Constants.resourceNotFound,
+          description: weather?.description ?? Constants.resourceNotFound,
+          tempMin: '${val.main?.tempMin.toString() ?? ''}°',
+          tempMax: '${val.main?.tempMax.toString() ?? ''}°',
         );
         initialTime = time;
         if (idx == 0 || (day != currDay && time != '00:00:00')) {

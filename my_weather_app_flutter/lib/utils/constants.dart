@@ -12,4 +12,5 @@ class Constants {
   static const String showingFailureTitle = 'Failure';
   static const String forecastButtonText = 'Forecast';
   static const String requestingForecastMessage = 'Requesting forecast data';
+  static const String resourceNotFound = 'Not Found';
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_weather_app_flutter/model/get_current_weather/get_current_weather_response.dart';
+import 'package:my_weather_app_flutter/utils/assets.dart';
 import 'package:my_weather_app_flutter/utils/constants.dart';
 
 class ShowingWeatherView extends StatelessWidget {
@@ -161,7 +162,7 @@ class Header extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          '${data.sys?.country ?? 'Country'}, ${data.name ?? 'City'}',
+          '${data.sys?.country ?? Constants.resourceNotFound}, ${data.name ?? Constants.resourceNotFound}',
           style: theme.textTheme.displayMedium
               ?.copyWith(color: theme.colorScheme.onPrimary),
           maxLines: 2,
@@ -172,14 +173,14 @@ class Header extends StatelessWidget {
           height: iconSize,
           width: iconSize,
           child: FadeInImage.assetNetwork(
-            placeholder: 'assets/img/weather-icon.png',
+            placeholder: Assets.placeholderImage,
             image:
                 'https://openweathermap.org/img/wn/${data.weather?.firstOrNull?.icon ?? ''}@2x.png',
             fit: BoxFit.contain,
           ),
         ),
         Text(
-          data.weather?.firstOrNull?.description ?? 'not found',
+          data.weather?.firstOrNull?.description ?? Constants.resourceNotFound,
           style: theme.textTheme.displaySmall?.copyWith(
             color: theme.colorScheme.onPrimary,
             fontWeight: FontWeight.bold,
@@ -217,12 +218,12 @@ class WeatherChart extends StatelessWidget {
                     child: Container(
                       height: imgSize,
                       child: Image.asset(
-                        'assets/img/thermometer-icon.png',
+                        Assets.temperatureImage,
                       ),
                     ),
                   ),
                   Text(
-                    '${data.main?.temp ?? '0'}°',
+                    '${data.main?.temp ?? ''}°',
                     style: theme.textTheme.displayMedium?.copyWith(
                       color: theme.colorScheme.onPrimary,
                       fontWeight: FontWeight.bold,
@@ -235,24 +236,24 @@ class WeatherChart extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Max: ${data.main?.tempMax ?? '0'}° ',
+                  'Max: ${data.main?.tempMax ?? ''}° ',
                   style: theme.textTheme.displaySmall
                       ?.copyWith(color: theme.colorScheme.onPrimary),
                 ),
                 Text(
-                  'Min: ${data.main?.tempMin ?? '0'}°',
+                  'Min: ${data.main?.tempMin ?? ''}°',
                   style: theme.textTheme.displaySmall
                       ?.copyWith(color: theme.colorScheme.onPrimary),
                 ),
               ],
             ),
             Text(
-              'Feels like ${data.main?.feelsLike ?? '0'}°',
+              'Feels like ${data.main?.feelsLike ?? ''}°',
               style: theme.textTheme.displaySmall
                   ?.copyWith(color: theme.colorScheme.onPrimary),
             ),
             Text(
-              'Humidity: ${data.main?.humidity ?? '0'}%',
+              'Humidity: ${data.main?.humidity ?? ''}%',
               style: theme.textTheme.displaySmall
                   ?.copyWith(color: theme.colorScheme.onPrimary),
             ),

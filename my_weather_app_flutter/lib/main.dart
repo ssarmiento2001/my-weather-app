@@ -57,7 +57,7 @@ class _HomePageExampleState extends State<HomePageExample> {
   bool requesting = false;
   LocationData? locationData;
   final api = OpenWeatherMapApi();
-  static const String appid = 'db58f9b80807a12f6afb87b9f373036b';
+  static const String appid = Constants.appid;
 
   Future<void> obtainLocationData() async {
     setState(() {
