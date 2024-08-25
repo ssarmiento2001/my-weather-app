@@ -20,12 +20,6 @@ To run the application, you need to have [Flutter](https://docs.flutter.dev/get-
 1. Clone the repository from github. If you do not have Git installed click [Here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
 In your terminal or command propt, use the following command to clone the repository:
 
-```
-git clone https://github.com/your-username/my-weather-app.git
-
-```
-Replace `your-username` with your GitHub username.
-
 2. cd into my_weather_app_flutter.
 
 3. Use the command `flutter pub get` to get all the dependencies.
