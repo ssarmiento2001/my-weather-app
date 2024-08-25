@@ -17,81 +17,240 @@ class ShowingWeatherView extends StatelessWidget {
     final theme = Theme.of(context);
     final mediaQuery = MediaQuery.of(context);
     final iconSize = mediaQuery.size.height * 0.15;
+    return OrientationBuilder(builder: (context, orientation) {
+      return Column(
+        children: [
+          Expanded(
+            child: Container(
+              width: mediaQuery.size.width,
+              child: Card(
+                color: theme.primaryColor,
+                child: orientation == Orientation.portrait
+                    ? PortraitContent(
+                        data: data,
+                        theme: theme,
+                        iconSize: iconSize,
+                        onButtonPushed: onButtonPushed)
+                    : LandscapeContent(
+                        data: data,
+                        theme: theme,
+                        iconSize: iconSize,
+                        onButtonPushed: onButtonPushed),
+              ),
+            ),
+          ),
+        ],
+      );
+    });
+  }
+}
+
+class LandscapeContent extends StatelessWidget {
+  const LandscapeContent({
+    super.key,
+    required this.data,
+    required this.theme,
+    required this.iconSize,
+    required this.onButtonPushed,
+  });
+
+  final GetCurrentWeatherResponse data;
+  final ThemeData theme;
+  final double iconSize;
+  final VoidCallback onButtonPushed;
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Expanded(
-          child: Container(
-            width: mediaQuery.size.width,
-            child: Card(
-              elevation: 4.0,
-              color: theme.primaryColor,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Header(data: data, theme: theme, iconSize: iconSize * 1.5),
+            WeatherChart(data: data, theme: theme),
+          ],
+        ),
+        ForecastButton(theme: theme, onButtonPushed: onButtonPushed),
+      ],
+    );
+  }
+}
+
+class ForecastButton extends StatelessWidget {
+  const ForecastButton({
+    super.key,
+    required this.theme,
+    required this.onButtonPushed,
+  });
+
+  final ThemeData theme;
+  final VoidCallback onButtonPushed;
+
+  @override
+  Widget build(BuildContext context) {
+    return OutlinedButton.icon(
+      style: ButtonStyle(
+        backgroundColor: WidgetStatePropertyAll(theme.colorScheme.onPrimary),
+      ),
+      onPressed: onButtonPushed,
+      icon: Icon(
+        Icons.date_range,
+        color: theme.colorScheme.primary,
+      ),
+      label: Text(
+        Constants.forecastButtonText,
+        style: theme.textTheme.headlineMedium?.copyWith(
+          color: theme.colorScheme.primary,
+        ),
+      ),
+    );
+  }
+}
+
+class PortraitContent extends StatelessWidget {
+  const PortraitContent({
+    super.key,
+    required this.data,
+    required this.theme,
+    required this.iconSize,
+    required this.onButtonPushed,
+  });
+
+  final GetCurrentWeatherResponse data;
+  final ThemeData theme;
+  final double iconSize;
+  final VoidCallback onButtonPushed;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Header(data: data, theme: theme, iconSize: iconSize),
+        WeatherChart(data: data, theme: theme),
+        ForecastButton(theme: theme, onButtonPushed: onButtonPushed),
+      ],
+    );
+  }
+}
+
+class Header extends StatelessWidget {
+  const Header({
+    super.key,
+    required this.data,
+    required this.theme,
+    required this.iconSize,
+  });
+
+  final GetCurrentWeatherResponse data;
+  final ThemeData theme;
+  final double iconSize;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          '${data.sys?.country ?? 'Country'}, ${data.name ?? 'City'}',
+          style: theme.textTheme.displayMedium
+              ?.copyWith(color: theme.colorScheme.onPrimary),
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+          textAlign: TextAlign.center,
+        ),
+        SizedBox(
+          height: iconSize,
+          width: iconSize,
+          child: FadeInImage.assetNetwork(
+            placeholder: 'assets/img/weather-icon.png',
+            image:
+                'https://openweathermap.org/img/wn/${data.weather?.firstOrNull?.icon ?? ''}@2x.png',
+            fit: BoxFit.contain,
+          ),
+        ),
+        Text(
+          data.weather?.firstOrNull?.description ?? 'not found',
+          style: theme.textTheme.displaySmall?.copyWith(
+            color: theme.colorScheme.onPrimary,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class WeatherChart extends StatelessWidget {
+  const WeatherChart({
+    super.key,
+    required this.data,
+    required this.theme,
+  });
+
+  final GetCurrentWeatherResponse data;
+  final ThemeData theme;
+
+  @override
+  Widget build(BuildContext context) {
+    final imgSize = MediaQuery.of(context).size.height * 0.1;
+    return OrientationBuilder(
+      builder: (context, orientation) {
+        return Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    '${data.sys?.country ?? 'Country'}, ${data.name ?? 'City'}',
-                    style: theme.textTheme.headlineLarge
-                        ?.copyWith(color: theme.colorScheme.onPrimary),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
-                  ),
-                  Flexible(
-                    fit: FlexFit.loose,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: iconSize,
-                          width: iconSize,
-                          child: FadeInImage.assetNetwork(
-                            placeholder: 'assets/img/weather-icon.png',
-                            image:
-                                'https://openweathermap.org/img/wn/${data.weather?.firstOrNull?.icon ?? ''}@2x.png',
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                        Text(
-                          data.weather?.firstOrNull?.description ?? 'N/A',
-                          style: theme.textTheme.displaySmall?.copyWith(
-                            color: theme.colorScheme.onPrimary,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Flexible(
-                    fit: FlexFit.loose,
-                    child: Text(
-                      '${data.main?.temp ?? '--'}°',
-                      style: theme.textTheme.displayLarge
-                          ?.copyWith(color: theme.colorScheme.onPrimary),
-                    ),
-                  ),
-                  OutlinedButton.icon(
-                    style: ButtonStyle(
-                      backgroundColor:
-                          WidgetStatePropertyAll(theme.colorScheme.onPrimary),
-                    ),
-                    onPressed: onButtonPushed,
-                    icon: Icon(
-                      Icons.date_range,
-                      color: theme.colorScheme.primary,
-                    ),
-                    label: Text(
-                      Constants.forecastButtonText,
-                      style: theme.textTheme.headlineMedium?.copyWith(
-                        color: theme.colorScheme.primary,
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10.0),
+                    child: Container(
+                      height: imgSize,
+                      child: Image.asset(
+                        'assets/img/thermometer-icon.png',
                       ),
+                    ),
+                  ),
+                  Text(
+                    '${data.main?.temp ?? '0'}°',
+                    style: theme.textTheme.displayMedium?.copyWith(
+                      color: theme.colorScheme.onPrimary,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],
               ),
             ),
-          ),
-        ),
-      ],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Max: ${data.main?.tempMax ?? '0'}° ',
+                  style: theme.textTheme.displaySmall
+                      ?.copyWith(color: Colors.redAccent),
+                ),
+                Text(
+                  'Min: ${data.main?.tempMin ?? '0'}°',
+                  style: theme.textTheme.displaySmall
+                      ?.copyWith(color: Colors.lightBlue),
+                ),
+              ],
+            ),
+            Text(
+              'Feels like ${data.main?.feelsLike ?? '0'}°',
+              style: theme.textTheme.displaySmall
+                  ?.copyWith(color: theme.colorScheme.onPrimary),
+            ),
+            Text(
+              'Humidity: ${data.main?.humidity ?? '0'}%',
+              style: theme.textTheme.displaySmall
+                  ?.copyWith(color: theme.colorScheme.onPrimary),
+            ),
+          ],
+        );
+      },
     );
   }
 }

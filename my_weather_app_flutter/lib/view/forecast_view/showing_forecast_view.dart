@@ -8,21 +8,26 @@ class ShowingForecastView extends StatelessWidget {
 
   List<Widget> _getListItems(ThemeData theme) {
     var initialTime = '00:00:00';
-    return data.list.map(
-      (e) {
-        final weather = e.weather?.firstOrNull;
-        final dtTxt = e.dtTxt?.split(' ') ?? [];
+    var currDay = '';
+    return data.list.asMap().entries.map((entry) {
+      {
+        final idx = entry.key;
+        final val = entry.value;
+
+        final weather = val.weather?.firstOrNull;
+        final dtTxt = val.dtTxt?.split(' ') ?? [];
         final day = dtTxt.length == 2 ? dtTxt.first : 'err';
         final time = dtTxt.length == 2 ? dtTxt.last : 'err';
         final item = ForecastListItem(
           time: '$initialTime-$time',
           icon: weather?.icon ?? 'err',
           description: weather?.description ?? 'err',
-          tempMin: '${e.main?.tempMin.toString() ?? '0'}°',
-          tempMax: '${e.main?.tempMax.toString() ?? '0'}°',
+          tempMin: '${val.main?.tempMin.toString() ?? '0'}°',
+          tempMax: '${val.main?.tempMax.toString() ?? '0'}°',
         );
         initialTime = time;
-        if (time == '03:00:00') {
+        if (idx == 0 || (day != currDay && time != '00:00:00')) {
+          currDay = day;
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -39,8 +44,8 @@ class ShowingForecastView extends StatelessWidget {
         } else {
           return item;
         }
-      },
-    ).toList();
+      }
+    }).toList();
   }
 
   @override

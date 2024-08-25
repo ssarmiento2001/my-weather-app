@@ -1,4 +1,5 @@
 class Constants {
+  static const String appName = 'My Weather App';
   static const String homePageTitle = 'Current Weather';
   static const String forecastTitle = 'Forecast';
   static const String appid = 'db58f9b80807a12f6afb87b9f373036b';
