@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_weather_app_flutter/bloc/home_page_bloc/home_page_cubit.dart';
 import 'package:my_weather_app_flutter/bloc/home_page_bloc/home_page_state.dart';
@@ -36,19 +37,20 @@ class HomePageView extends StatelessWidget {
         elevation: 10,
         actions: [
           Padding(
-              padding: const EdgeInsets.only(right: 20.0),
-              child: GestureDetector(
-                onTap: cubit.refresh,
-                child: const Icon(
-                  Icons.refresh,
-                  size: 26.0,
-                ),
-              )),
+            padding: const EdgeInsets.only(right: 20.0),
+            child: GestureDetector(
+              onTap: cubit.refresh,
+              child: const Icon(
+                Icons.refresh,
+                size: 26.0,
+              ),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.only(right: 20.0),
             child: GestureDetector(
-              onTap: () {},
-              child: const Icon(Icons.more_vert),
+              onTap: cubit.exit,
+              child: const Icon(Icons.exit_to_app),
             ),
           ),
         ],

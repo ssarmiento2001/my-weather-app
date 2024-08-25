@@ -8,7 +8,7 @@ class ShowingForecastView extends StatelessWidget {
   ShowingForecastView({super.key, required this.data});
 
   List<Widget> _getListItems(ThemeData theme) {
-    var initialTime = '00:00:00';
+    var initialTime = '';
     var currDay = '';
     return data.list.asMap().entries.map((entry) {
       {
@@ -21,6 +21,13 @@ class ShowingForecastView extends StatelessWidget {
             dtTxt.length == 2 ? dtTxt.first : Constants.resourceNotFound;
         final time =
             dtTxt.length == 2 ? dtTxt.last : Constants.resourceNotFound;
+        if (initialTime.isEmpty && time != Constants.resourceNotFound) {
+          var temp = time.split(':');
+          if (temp.isNotEmpty) {
+            temp[0] = (((int.tryParse(temp.first) ?? 3) - 3) % 24).toString();
+          }
+          initialTime = temp.join(':');
+        }
         final item = ForecastListItem(
           time: '$initialTime-$time',
           icon: weather?.icon ?? Constants.resourceNotFound,

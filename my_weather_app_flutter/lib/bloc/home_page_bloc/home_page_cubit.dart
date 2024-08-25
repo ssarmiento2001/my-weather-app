@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:location/location.dart';
 import 'package:my_weather_app_flutter/bloc/home_page_bloc/home_page_state.dart';
@@ -114,6 +115,25 @@ class HomePageCubit extends Cubit<HomePageState> {
         {
           emit(InitializingState());
           return _initialize();
+        }
+      case ShowingFailureState _:
+        {
+          emit(InitializingState());
+          return _initialize();
+        }
+      default:
+    }
+  }
+
+  Future<void> exit() async {
+    switch (state) {
+      case ShowingWeatherState _:
+        {
+          SystemNavigator.pop();
+        }
+      case ShowingFailureState _:
+        {
+          SystemNavigator.pop();
         }
       default:
     }
