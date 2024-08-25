@@ -21,29 +21,32 @@ class ForecastListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final mediaQuery = MediaQuery.of(context);
-    final iconSize = mediaQuery.size.width * 0.1;
-    return Container(
-      width: mediaQuery.size.width * 0.9,
-      height: mediaQuery.size.height * 0.2,
-      child: Card(
-        color: theme.primaryColorLight,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(time),
-            SizedBox(
-              height: iconSize,
-              width: iconSize,
-              child: FadeInImage.assetNetwork(
-                placeholder: 'assets/img/weather-icon.png',
-                image: 'https://openweathermap.org/img/wn/$icon@2x.png',
-                fit: BoxFit.contain,
+    final iconSize = mediaQuery.size.width * 0.2;
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10.0),
+      child: Container(
+        width: mediaQuery.size.width * 0.9,
+        height: mediaQuery.size.height * 0.1,
+        child: Card(
+          color: theme.colorScheme.primaryContainer,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text(time),
+              SizedBox(
+                height: iconSize,
+                width: iconSize,
+                child: FadeInImage.assetNetwork(
+                  placeholder: 'assets/img/weather-icon.png',
+                  image: 'https://openweathermap.org/img/wn/$icon@2x.png',
+                  fit: BoxFit.contain,
+                ),
               ),
-            ),
-            Text(description),
-            Text(tempMax),
-            Text(tempMin)
-          ],
+              Text(description),
+              Text(tempMax),
+              Text(tempMin)
+            ],
+          ),
         ),
       ),
     );
