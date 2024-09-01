@@ -11,10 +11,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun FailureScreen(){
+fun ForecastScreen(){
     Scaffold(
         topBar = {
-            AppBar(title = "Failure screen")
+            AppBar(title = "Forecast screen")
         }
     ) { padding ->
         Column(
@@ -24,7 +24,7 @@ fun FailureScreen(){
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text(text = "This is failure screen")
+            Text(text = "This is the forecast screen")
         }
     }
 }

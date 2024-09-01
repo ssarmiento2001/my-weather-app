@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun AppBar(
     title: String,
-    onBackNavClicked: () -> Unit = {},
+    onBackNavClicked: (() -> Unit)?,
     secondaryButton: @Composable (() -> Unit)? = null
 ) {
 
@@ -49,12 +49,14 @@ fun AppBar(
             containerColor = MaterialTheme.colorScheme.primary
         ),
         navigationIcon = {
-            IconButton(onClick = { onBackNavClicked() }) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = null,
-                    tint = Color.White
-                )
+            onBackNavClicked?.let {
+                IconButton(onClick = { onBackNavClicked() }) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onPrimary
+                    )
+                }
             }
         }
     )

@@ -16,7 +16,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import edu.example.myweatherappcompose.screen.FailureScreen
+import edu.example.myweatherappcompose.screen.ForecastScreen
 import edu.example.myweatherappcompose.screen.HomePage
 import edu.example.myweatherappcompose.screen.RequestPermissionScreen
 import edu.example.myweatherappcompose.screen.Screen
@@ -54,10 +54,7 @@ fun Navigation(
     NavHost(navController = navHostController, startDestination = Screen.RequestPermission.route) {
         composable(Screen.RequestPermission.route) {
             RequestPermissionScreen(
-                onPermissionGranted = { navHostController.navigate(Screen.HomePage.route) },
-                onPermissionDenied = {
-                    navHostController.navigate(Screen.Failure.route)
-                }
+                onPermissionGranted = { navHostController.navigate(Screen.HomePage.route) }
             )
         }
 
@@ -65,8 +62,8 @@ fun Navigation(
             HomePage()
         }
 
-        composable(Screen.Failure.route) {
-            FailureScreen()
+        composable(Screen.Forecast.route) {
+            ForecastScreen()
         }
     }
 }

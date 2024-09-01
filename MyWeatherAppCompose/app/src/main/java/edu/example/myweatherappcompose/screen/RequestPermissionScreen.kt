@@ -49,7 +49,6 @@ import edu.example.myweatherappcompose.viewModel.LocationViewModel
 @Composable
 fun RequestPermissionScreen(
     onPermissionGranted: () -> Unit,
-    onPermissionDenied: () -> Unit,
 ) {
     val permissionState = rememberMultiplePermissionsState(
         listOf(
