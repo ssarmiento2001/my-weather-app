@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun AppBar(
     title: String,
-    onBackNavClicked: (() -> Unit)?,
+    onBackNavClicked: (() -> Unit)? = null,
     secondaryButton: @Composable (() -> Unit)? = null
 ) {
 
