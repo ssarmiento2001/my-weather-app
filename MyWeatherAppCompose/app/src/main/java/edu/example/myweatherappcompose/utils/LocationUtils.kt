@@ -4,7 +4,10 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
+import android.location.Geocoder
+import android.os.Build
 import android.os.Looper
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
@@ -12,9 +15,10 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
-import com.google.android.gms.tasks.CancellationTokenSource
-import edu.example.myweatherappcompose.model.LocationData
+import com.google.android.gms.maps.model.LatLng
+import edu.example.myweatherappcompose.data.LocationData
 import edu.example.myweatherappcompose.viewModel.LocationViewModel
+import java.util.Locale
 
 class LocationUtils(private val context: Context) {
 
@@ -27,48 +31,6 @@ class LocationUtils(private val context: Context) {
         ) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(
             context, Manifest.permission.ACCESS_COARSE_LOCATION
         ) == PackageManager.PERMISSION_GRANTED
-    }
-
-    @SuppressLint("MissingPermission")
-    fun getLastUserLocation(
-        onSuccess: (LocationData) -> Unit,
-        onFailure: (Exception) -> Unit
-    ) {
-        if (hasLocationPermission()) {
-            _fusedLocationClient.lastLocation.addOnSuccessListener { location ->
-                location?.let {
-                    onSuccess(
-                        LocationData(latitude = it.latitude, longitude = it.longitude)
-                    )
-                }
-            }.addOnFailureListener { exception -> onFailure(exception) }
-        }
-    }
-
-    @SuppressLint("MissingPermission")
-    fun getCurrentLocation(
-        onSuccess: (LocationData) -> Unit,
-        onFailure: (Exception) -> Unit,
-        priority: Boolean
-    ) {
-        val accuracy =
-            if (priority) Priority.PRIORITY_HIGH_ACCURACY else Priority.PRIORITY_BALANCED_POWER_ACCURACY
-
-        if (hasLocationPermission()) {
-            _fusedLocationClient.getCurrentLocation(accuracy, CancellationTokenSource().token)
-                .addOnSuccessListener { location ->
-                    location?.let {
-                        onSuccess(
-                            LocationData(
-                                latitude = it.latitude,
-                                longitude = it.longitude
-                            )
-                        )
-                    }
-                }.addOnFailureListener { exception ->
-                    onFailure(exception)
-                }
-        }
     }
 
     @SuppressLint("MissingPermission")
@@ -89,5 +51,20 @@ class LocationUtils(private val context: Context) {
             locationCallback,
             Looper.myLooper()
         )
+    }
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    fun reverseGeocodeLocation(locationData: LocationData, viewModel: LocationViewModel) {
+        val geoCoder = Geocoder(context, Locale.getDefault())
+        val coordinate = LatLng(locationData.latitude, locationData.longitude)
+        geoCoder.getFromLocation(
+            coordinate.latitude,
+            coordinate.longitude,
+            1
+        ) {
+            if (it.isNotEmpty()) {
+                viewModel.updateAddress(it.first().getAddressLine(0))
+            }
+        }
     }
 }

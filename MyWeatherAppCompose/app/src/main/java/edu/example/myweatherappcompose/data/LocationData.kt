@@ -1,4 +1,4 @@
-package edu.example.myweatherappcompose.model
+package edu.example.myweatherappcompose.data
 
 data class LocationData(
     val latitude: Double,

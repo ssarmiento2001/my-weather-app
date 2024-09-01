@@ -21,6 +21,9 @@ import edu.example.myweatherappcompose.screen.HomePage
 import edu.example.myweatherappcompose.screen.RequestPermissionScreen
 import edu.example.myweatherappcompose.screen.Screen
 import edu.example.myweatherappcompose.ui.theme.MyWeatherAppComposeTheme
+import edu.example.myweatherappcompose.viewModel.LocationViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import edu.example.myweatherappcompose.utils.LocationUtils
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,6 +54,8 @@ fun Navigation(
     context: Context,
     navHostController: NavHostController
 ) {
+    val viewModel: LocationViewModel = viewModel()
+    val locationUtils = LocationUtils(context = context)
     NavHost(navController = navHostController, startDestination = Screen.RequestPermission.route) {
         composable(Screen.RequestPermission.route) {
             RequestPermissionScreen(
@@ -59,7 +64,7 @@ fun Navigation(
         }
 
         composable(Screen.HomePage.route) {
-            HomePage()
+            HomePage(locationUtils = locationUtils, viewModel = viewModel)
         }
 
         composable(Screen.Forecast.route) {
