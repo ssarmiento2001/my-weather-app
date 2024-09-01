@@ -1,16 +1,25 @@
 package edu.example.myweatherappcompose
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import edu.example.myweatherappcompose.screen.FailureScreen
+import edu.example.myweatherappcompose.screen.HomePage
+import edu.example.myweatherappcompose.screen.RequestPermissionScreen
+import edu.example.myweatherappcompose.screen.Screen
 import edu.example.myweatherappcompose.ui.theme.MyWeatherAppComposeTheme
 
 class MainActivity : ComponentActivity() {
@@ -18,11 +27,18 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            val navController = rememberNavController()
+            val context = LocalContext.current
             MyWeatherAppComposeTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
+                Surface(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .safeDrawingPadding(),
+                    color = MaterialTheme.colorScheme.primary
+                ) {
+                    Navigation(
+                        context = context,
+                        navHostController = navController
                     )
                 }
             }
@@ -31,17 +47,26 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+fun Navigation(
+    context: Context,
+    navHostController: NavHostController
+) {
+    NavHost(navController = navHostController, startDestination = Screen.RequestPermission.route) {
+        composable(Screen.RequestPermission.route) {
+            RequestPermissionScreen(
+                onPermissionGranted = { navHostController.navigate(Screen.HomePage.route) },
+                onPermissionDenied = {
+                    navHostController.navigate(Screen.Failure.route)
+                }
+            )
+        }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    MyWeatherAppComposeTheme {
-        Greeting("Android")
+        composable(Screen.HomePage.route) {
+            HomePage()
+        }
+
+        composable(Screen.Failure.route) {
+            FailureScreen()
+        }
     }
 }
