@@ -79,6 +79,6 @@ fun RequestPermissionScreen(
             description = stringResource(
                 id = R.string.rationale
             )
-        ) else LoadingView()
+        ) else LoadingView(color = MaterialTheme.colorScheme.onPrimary)
     }
 }
