@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
@@ -15,7 +16,7 @@ import androidx.compose.ui.text.style.TextAlign
 import edu.example.myweatherappcompose.data.GetWeatherResponse
 
 @Composable
-fun ShowWeather(address: String, weatherData: GetWeatherResponse) {
+fun ShowWeather(address: MutableState<String?>, weatherData: GetWeatherResponse) {
     val textColor = MaterialTheme.colorScheme.onPrimary
     Column(
         modifier = Modifier
@@ -25,7 +26,7 @@ fun ShowWeather(address: String, weatherData: GetWeatherResponse) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = address,
+            text = address.value ?: "No address",
             textAlign = TextAlign.Center,
             style = TextStyle(fontWeight = FontWeight.Bold),
             color = textColor

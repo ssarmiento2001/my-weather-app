@@ -2,4 +2,9 @@
     <string name="app_name">MyWeatherAppCompose</string>
     <string name="permission_denied_title">Permission denied</string>
     <string name="rationale">Change app permissions on your device\'s settings</string>
+    <string name="home_page_title">Home Page</string>
+    <string name="home_page_error">Error getting current weather</string>
+    <string name="default_error_message">Unexpected error occurred</string>
+    <string name="getting_location_data">Getting location data...</string>
+    <string name="requesting_current_weather">Requesting weather data...</string>
 </resources>

@@ -14,6 +14,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -23,9 +24,10 @@ import edu.example.myweatherappcompose.screen.HomePage
 import edu.example.myweatherappcompose.screen.RequestPermissionScreen
 import edu.example.myweatherappcompose.screen.Screen
 import edu.example.myweatherappcompose.ui.theme.MyWeatherAppComposeTheme
-import edu.example.myweatherappcompose.viewModel.LocationViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import edu.example.myweatherappcompose.screen.composables.ErrorView
 import edu.example.myweatherappcompose.utils.LocationUtils
+import edu.example.myweatherappcompose.viewModel.HomePageViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,13 +53,12 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
 fun Navigation(
     context: Context,
     navHostController: NavHostController
 ) {
-    val viewModel: LocationViewModel = viewModel()
+    val viewModel: HomePageViewModel = viewModel()
     val locationUtils = LocationUtils(context = context)
     NavHost(navController = navHostController, startDestination = Screen.RequestPermission.route) {
         composable(Screen.RequestPermission.route) {
@@ -67,7 +68,16 @@ fun Navigation(
         }
 
         composable(Screen.HomePage.route) {
-            HomePage(locationUtils = locationUtils, viewModel = viewModel)
+            if (locationUtils.hasLocationPermission()) {
+                HomePage(locationUtils = locationUtils, viewModel = viewModel)
+            } else {
+                ErrorView(
+                    title = stringResource(id = R.string.permission_denied_title),
+                    description = stringResource(
+                        id = R.string.rationale
+                    )
+                )
+            }
         }
 
         composable(Screen.Forecast.route) {

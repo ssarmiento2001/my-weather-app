@@ -43,7 +43,6 @@ import edu.example.myweatherappcompose.R
 import edu.example.myweatherappcompose.screen.composables.ErrorView
 import edu.example.myweatherappcompose.screen.composables.LoadingView
 import edu.example.myweatherappcompose.utils.LocationUtils
-import edu.example.myweatherappcompose.viewModel.LocationViewModel
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
@@ -79,6 +78,6 @@ fun RequestPermissionScreen(
             description = stringResource(
                 id = R.string.rationale
             )
-        ) else LoadingView(color = MaterialTheme.colorScheme.onPrimary)
+        ) else LoadingView(message = "", color = MaterialTheme.colorScheme.onPrimary)
     }
 }

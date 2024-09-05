@@ -17,7 +17,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.android.gms.maps.model.LatLng
 import edu.example.myweatherappcompose.data.LocationData
-import edu.example.myweatherappcompose.viewModel.LocationViewModel
+import edu.example.myweatherappcompose.viewModel.HomePageViewModel
 import java.util.Locale
 
 class LocationUtils(private val context: Context) {
@@ -34,7 +34,7 @@ class LocationUtils(private val context: Context) {
     }
 
     @SuppressLint("MissingPermission")
-    fun requestLocationUpdates(viewModel: LocationViewModel) {
+    fun requestLocationUpdates(viewModel: HomePageViewModel) {
         val locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
                 super.onLocationResult(locationResult)
@@ -54,7 +54,7 @@ class LocationUtils(private val context: Context) {
     }
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    fun reverseGeocodeLocation(locationData: LocationData, viewModel: LocationViewModel) {
+    fun reverseGeocodeLocation(locationData: LocationData, viewModel: HomePageViewModel) {
         val geoCoder = Geocoder(context, Locale.getDefault())
         val coordinate = LatLng(locationData.latitude, locationData.longitude)
         geoCoder.getFromLocation(
