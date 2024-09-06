@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -16,12 +17,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import edu.example.myweatherappcompose.R
 
 @Composable
 fun LoadingView(message: String, color: Color = MaterialTheme.colorScheme.primary) {
-    Column {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Box(contentAlignment = Alignment.Center) {
             Image(
                 colorFilter = ColorFilter.tint(color),
@@ -35,6 +38,13 @@ fun LoadingView(message: String, color: Color = MaterialTheme.colorScheme.primar
             )
         }
         Spacer(modifier = Modifier.height(10.dp))
-        Text(text = message, style = TextStyle(color = color))
+        Text(
+            modifier = Modifier.width(120.dp),
+            text = message,
+            style = TextStyle(color = color),
+            textAlign = TextAlign.Center,
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis
+        )
     }
 }
