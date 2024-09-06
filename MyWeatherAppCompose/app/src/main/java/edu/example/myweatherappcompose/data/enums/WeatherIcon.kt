@@ -14,7 +14,7 @@ enum class WeatherIcon(val value: Int) {
     RAIN_DAY(R.drawable.rain_day),
     RAIN_NIGHT(R.drawable.rain_night),
     THUNDERSTORM(R.drawable.thunderstorm),
-    SNOW(R.drawable.thunderstorm),
+    SNOW(R.drawable.snow),
     HAZE(R.drawable.haze)
 
 }
