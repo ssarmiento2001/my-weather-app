@@ -1,12 +1,10 @@
 package edu.example.myweatherappcompose
 
 import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material3.MaterialTheme
@@ -25,8 +23,10 @@ import edu.example.myweatherappcompose.screen.RequestPermissionScreen
 import edu.example.myweatherappcompose.screen.Screen
 import edu.example.myweatherappcompose.ui.theme.MyWeatherAppComposeTheme
 import androidx.lifecycle.viewmodel.compose.viewModel
+import edu.example.myweatherappcompose.data.LocationData
 import edu.example.myweatherappcompose.screen.composables.ErrorView
 import edu.example.myweatherappcompose.utils.LocationUtils
+import edu.example.myweatherappcompose.viewModel.ForecastViewModel
 import edu.example.myweatherappcompose.viewModel.HomePageViewModel
 
 class MainActivity : ComponentActivity() {
@@ -58,7 +58,8 @@ fun Navigation(
     context: Context,
     navHostController: NavHostController
 ) {
-    val viewModel: HomePageViewModel = viewModel()
+    val homePageViewModel: HomePageViewModel = viewModel()
+    val forecastViewModel: ForecastViewModel = viewModel()
     val locationUtils = LocationUtils(context = context)
     NavHost(navController = navHostController, startDestination = Screen.RequestPermission.route) {
         composable(Screen.RequestPermission.route) {
@@ -69,7 +70,13 @@ fun Navigation(
 
         composable(Screen.HomePage.route) {
             if (locationUtils.hasLocationPermission()) {
-                HomePage(locationUtils = locationUtils, viewModel = viewModel)
+                HomePage(locationUtils = locationUtils, viewModel = homePageViewModel) { location ->
+                    navHostController.currentBackStackEntry?.savedStateHandle?.set(
+                        "location",
+                        location.toMap()
+                    )
+                    navHostController.navigate(Screen.Forecast.route)
+                }
             } else {
                 ErrorView(
                     title = stringResource(id = R.string.permission_denied_title),
@@ -81,7 +88,14 @@ fun Navigation(
         }
 
         composable(Screen.Forecast.route) {
-            ForecastScreen()
+            val map =
+                navHostController.previousBackStackEntry?.savedStateHandle?.get<Map<String, Double>>(
+                    "location"
+                ) ?: mapOf()
+            val location = LocationData.fromMap(map)
+            ForecastScreen(
+                forecastViewModel = forecastViewModel,
+                locationData = location)
         }
     }
 }

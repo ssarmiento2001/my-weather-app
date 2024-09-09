@@ -7,4 +7,10 @@
     <string name="default_error_message">Unexpected error occurred</string>
     <string name="getting_location_data">Getting location data...</string>
     <string name="requesting_current_weather">Requesting weather data...</string>
+    <string name="max_label">Max:</string>
+    <string name="min_label">Min:</string>
+    <string name="feels_like_label">Feels like:</string>
+    <string name="humidity_label">Humidity:</string>
+    <string name="forecast_button">Forecast</string>
+    <string name="forecast_page_title">Forecast screen</string>
 </resources>

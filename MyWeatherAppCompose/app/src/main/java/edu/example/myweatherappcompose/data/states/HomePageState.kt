@@ -12,6 +12,7 @@ sealed class HomePageState {
     data class RequestingWeatherDataState(val locationData: LocationData) : HomePageState()
     data class ShowingWeatherDataState(
         val weatherData: GetWeatherResponse,
-        val address: MutableState<String?>
+        val address: MutableState<String?>,
+        val locationData: LocationData
     ) : HomePageState()
 }

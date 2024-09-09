@@ -9,12 +9,19 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import edu.example.myweatherappcompose.R
+import edu.example.myweatherappcompose.data.LocationData
+import edu.example.myweatherappcompose.viewModel.ForecastViewModel
 
 @Composable
-fun ForecastScreen(){
+fun ForecastScreen(
+    forecastViewModel: ForecastViewModel,
+    locationData: LocationData
+) {
     Scaffold(
         topBar = {
-            AppBar(title = "Forecast screen")
+            AppBar(title = stringResource(id = R.string.forecast_page_title))
         }
     ) { padding ->
         Column(
@@ -24,7 +31,7 @@ fun ForecastScreen(){
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text(text = "This is the forecast screen")
+            Text(text = "Lat: ${locationData.latitude} Lon: ${locationData.longitude}")
         }
     }
 }

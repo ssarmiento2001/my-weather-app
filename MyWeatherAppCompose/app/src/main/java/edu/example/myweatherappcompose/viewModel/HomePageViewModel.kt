@@ -80,7 +80,8 @@ class HomePageViewModel : ViewModel() {
                 )
                 _state.value = HomePageState.ShowingWeatherDataState(
                     weatherData = response,
-                    address = _address
+                    address = _address,
+                    locationData = locationData
                 )
             } catch (e: Exception) {
                 _state.value = HomePageState.FailureState(exception = e)

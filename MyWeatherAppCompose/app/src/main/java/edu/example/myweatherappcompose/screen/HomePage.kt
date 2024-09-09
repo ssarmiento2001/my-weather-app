@@ -1,7 +1,6 @@
 package edu.example.myweatherappcompose.screen
 
-import android.os.Build
-import androidx.annotation.RequiresApi
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,28 +11,25 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import edu.example.myweatherappcompose.R
-import edu.example.myweatherappcompose.data.GetWeatherRequest
-import edu.example.myweatherappcompose.data.GetWeatherResponse
-import edu.example.myweatherappcompose.data.Result
-import edu.example.myweatherappcompose.data.enums.Lang
-import edu.example.myweatherappcompose.data.enums.Mode
-import edu.example.myweatherappcompose.data.enums.Units
+import edu.example.myweatherappcompose.data.LocationData
 import edu.example.myweatherappcompose.data.states.HomePageState
 import edu.example.myweatherappcompose.screen.composables.ErrorView
 import edu.example.myweatherappcompose.screen.composables.LoadingView
 import edu.example.myweatherappcompose.screen.composables.ShowWeather
-import edu.example.myweatherappcompose.utils.Constants
 import edu.example.myweatherappcompose.utils.LocationUtils
 import edu.example.myweatherappcompose.viewModel.HomePageViewModel
 
 @Composable
-fun HomePage(locationUtils: LocationUtils, viewModel: HomePageViewModel) {
+fun HomePage(
+    locationUtils: LocationUtils,
+    viewModel: HomePageViewModel,
+    onRequestForecast: (LocationData) -> Unit
+) {
 
     val state = viewModel.state
 
@@ -86,9 +82,11 @@ fun HomePage(locationUtils: LocationUtils, viewModel: HomePageViewModel) {
 
                 is HomePageState.ShowingWeatherDataState -> ShowWeather(
                     address = (state.value as HomePageState.ShowingWeatherDataState).address,
-                    weatherData = (state.value as HomePageState.ShowingWeatherDataState).weatherData
+                    weatherData = (state.value as HomePageState.ShowingWeatherDataState).weatherData,
+                    onButtonPressed = { onRequestForecast((state.value as HomePageState.ShowingWeatherDataState).locationData) }
                 )
             }
         }
     }
+    BackHandler {}
 }
