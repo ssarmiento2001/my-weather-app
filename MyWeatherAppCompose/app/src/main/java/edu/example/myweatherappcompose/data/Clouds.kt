@@ -1,3 +1,7 @@
 package edu.example.myweatherappcompose.data
 
-data class Clouds(val all: Int?)
+import com.google.gson.annotations.SerializedName
+
+data class Clouds(
+    @SerializedName("all") val all: Int?
+)

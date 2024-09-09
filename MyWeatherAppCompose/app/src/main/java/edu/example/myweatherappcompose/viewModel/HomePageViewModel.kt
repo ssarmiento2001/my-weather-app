@@ -6,6 +6,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import edu.example.myweatherappcompose.data.GetWeatherRequest
 import edu.example.myweatherappcompose.data.GetWeatherResponse
 import edu.example.myweatherappcompose.data.LocationData
 import edu.example.myweatherappcompose.data.enums.Lang
@@ -68,12 +69,14 @@ class HomePageViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val response = _apiService.getWeather(
-                    lat = locationData.latitude,
-                    lon = locationData.longitude,
-                    appid = Constants.WeatherAPI.appid,
-                    mode = Mode.JSON.value,
-                    units = Units.METRIC.value,
-                    lang = Lang.ENGLISH.value
+                    getWeatherRequest = GetWeatherRequest(
+                        lat = locationData.latitude,
+                        lon = locationData.longitude,
+                        appid = Constants.WeatherAPI.appid,
+                        mode = Mode.JSON,
+                        units = Units.METRIC,
+                        lang = Lang.ENGLISH
+                    ).toMap()
                 )
                 _state.value = HomePageState.ShowingWeatherDataState(
                     weatherData = response,

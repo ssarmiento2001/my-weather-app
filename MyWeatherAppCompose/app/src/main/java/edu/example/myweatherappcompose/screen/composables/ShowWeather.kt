@@ -132,20 +132,20 @@ private fun TemperatureSection(
         Spacer(modifier = Modifier.height(20.dp))
         Row {
             Text(
-                text = "Max: ${weatherData.main?.temp_max.toString()}°",
+                text = "Max: ${weatherData.main?.tempMax.toString()}°",
                 color = textColor,
                 style = textStyle
             )
             Spacer(modifier = Modifier.width(10.dp))
             Text(
-                text = "Min: ${weatherData.main?.temp_min.toString()}°",
+                text = "Min: ${weatherData.main?.tempMin.toString()}°",
                 color = textColor,
                 style = textStyle
             )
         }
         Spacer(modifier = Modifier.height(20.dp))
         Text(
-            text = "Feels like ${weatherData.main?.feels_like.toString()}°",
+            text = "Feels like ${weatherData.main?.feelsLike.toString()}°",
             color = textColor,
             style = textStyle
         )

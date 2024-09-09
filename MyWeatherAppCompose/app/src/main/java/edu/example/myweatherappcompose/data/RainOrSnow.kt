@@ -1,3 +1,8 @@
 package edu.example.myweatherappcompose.data
 
-data class RainOrSnow(val oneH: Double?, val threeH: Double?)
+import com.google.gson.annotations.SerializedName
+
+data class RainOrSnow(
+    @SerializedName("1h") val oneH: Double?,
+    @SerializedName("3h") val threeH: Double?
+)

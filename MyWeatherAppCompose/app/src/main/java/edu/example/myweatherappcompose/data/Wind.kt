@@ -1,3 +1,9 @@
 package edu.example.myweatherappcompose.data
 
-data class Wind(val speed: Double?, val deg: Double?, val gust: Double?)
+import com.google.gson.annotations.SerializedName
+
+data class Wind(
+    @SerializedName("speed") val speed: Double?,
+    @SerializedName("deg") val deg: Double?,
+    @SerializedName("gust") val gust: Double?
+)

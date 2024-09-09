@@ -1,5 +1,6 @@
 package edu.example.myweatherappcompose.utils
 
+import com.google.gson.Gson
 import edu.example.myweatherappcompose.data.enums.WeatherIcon
 import edu.example.myweatherappcompose.service.WeatherService
 import retrofit2.Retrofit

@@ -1,19 +1,21 @@
 package edu.example.myweatherappcompose.data
 
+import com.google.gson.annotations.SerializedName
+
 data class GetWeatherResponse(
-    val coord: Coord?,
-    val weather: List<Weather>?,
-    val base: String?,
-    val main: Main?,
-    val visibility: Int?,
-    val wind: Wind?,
-    val clouds: Clouds?,
-    val dt: Int?,
-    val sys: Sys?,
-    val timezone: Int?,
-    val id: Int?,
-    val name: String?,
-    val cod: Int?,
-    val rain: RainOrSnow?,
-    val snow: RainOrSnow?
+    @SerializedName("coord") val coord: Coord?,
+    @SerializedName("weather") val weather: List<Weather>?,
+    @SerializedName("base") val base: String?,
+    @SerializedName("main") val main: Main?,
+    @SerializedName("visibility") val visibility: Int?,
+    @SerializedName("wind") val wind: Wind?,
+    @SerializedName("clouds") val clouds: Clouds?,
+    @SerializedName("dt") val dt: Int?,
+    @SerializedName("sys") val sys: Sys?,
+    @SerializedName("timezone") val timezone: Int?,
+    @SerializedName("id") val id: Int?,
+    @SerializedName("name") val name: String?,
+    @SerializedName("cod") val cod: Int?,
+    @SerializedName("rain") val rain: RainOrSnow?,
+    @SerializedName("snow") val snow: RainOrSnow?
 )
