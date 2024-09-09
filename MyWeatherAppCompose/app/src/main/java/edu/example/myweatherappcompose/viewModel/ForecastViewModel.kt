@@ -17,14 +17,22 @@ class ForecastViewModel : ViewModel() {
 
     private val _apiService = Constants.WeatherAPI.weatherService
 
-    private val _state = mutableStateOf<ForecastState>(ForecastState.RequestingForecastData)
+    private val _state = mutableStateOf<ForecastState>(ForecastState.InitState)
     val state: State<ForecastState> = _state
 
     fun requestForecast(locationData: LocationData) {
-        _requestForecast(locationData)
+        when(_state.value){
+            ForecastState.InitState -> _requestForecast(locationData)
+            else -> {}
+        }
+    }
+
+    fun resetState() {
+        _state.value = ForecastState.InitState
     }
 
     private fun _requestForecast(locationData: LocationData) {
+        _state.value = ForecastState.RequestingForecastData
         viewModelScope.launch {
             try {
                 val response = _apiService.getForecast(

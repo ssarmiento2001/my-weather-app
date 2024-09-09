@@ -64,18 +64,18 @@ fun Navigation(
     NavHost(navController = navHostController, startDestination = Screen.RequestPermission.route) {
         composable(Screen.RequestPermission.route) {
             RequestPermissionScreen(
-                onPermissionGranted = { navHostController.navigate(Screen.HomePage.route) }
+                onPermissionGranted = {
+                    navHostController.navigate(Screen.HomePage.route)
+                    homePageViewModel.init(locationUtils = locationUtils)
+                }
             )
         }
 
         composable(Screen.HomePage.route) {
             if (locationUtils.hasLocationPermission()) {
-                HomePage(locationUtils = locationUtils, viewModel = homePageViewModel) { location ->
-                    navHostController.currentBackStackEntry?.savedStateHandle?.set(
-                        "location",
-                        location.toMap()
-                    )
+                HomePage(viewModel = homePageViewModel) { location ->
                     navHostController.navigate(Screen.Forecast.route)
+                    forecastViewModel.requestForecast(location)
                 }
             } else {
                 ErrorView(
@@ -88,16 +88,11 @@ fun Navigation(
         }
 
         composable(Screen.Forecast.route) {
-            val map =
-                navHostController.previousBackStackEntry?.savedStateHandle?.get<Map<String, Double>>(
-                    "location"
-                ) ?: mapOf()
-            val location = LocationData.fromMap(map)
             ForecastScreen(
-                forecastViewModel = forecastViewModel,
-                locationData = location
+                forecastViewModel = forecastViewModel
             ) {
-                navHostController.navigateUp()
+                navHostController.popBackStack()
+                forecastViewModel.resetState()
             }
         }
     }

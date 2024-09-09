@@ -27,16 +27,11 @@ import edu.example.myweatherappcompose.viewModel.HomePageViewModel
 
 @Composable
 fun HomePage(
-    locationUtils: LocationUtils,
     viewModel: HomePageViewModel,
     onRequestForecast: (LocationData) -> Unit
 ) {
 
     val state = viewModel.state
-
-    if (state.value is HomePageState.InitState) {
-        viewModel.init(locationUtils = locationUtils)
-    }
 
     Scaffold(
         topBar = {

@@ -21,13 +21,9 @@ import edu.example.myweatherappcompose.viewModel.ForecastViewModel
 @Composable
 fun ForecastScreen(
     forecastViewModel: ForecastViewModel,
-    locationData: LocationData,
     onBackButtonPressed: () -> Unit
 ) {
     val state = forecastViewModel.state
-    if (state.value is ForecastState.RequestingForecastData) {
-        forecastViewModel.requestForecast(locationData)
-    }
 
     Scaffold(
         topBar = {
@@ -45,6 +41,7 @@ fun ForecastScreen(
             verticalArrangement = Arrangement.Center
         ) {
             when (state.value) {
+                ForecastState.InitState -> {}
                 ForecastState.RequestingForecastData -> LoadingView(message = stringResource(id = R.string.requesting_forecast_data))
                 is ForecastState.FailureState -> ErrorView(
                     title = stringResource(id = R.string.forecast_error),
@@ -53,6 +50,7 @@ fun ForecastScreen(
                             id = R.string.default_error_message
                         )
                 )
+
                 is ForecastState.ShowingForecastData -> ShowForecast(forecastData = (state.value as ForecastState.ShowingForecastData).forecastData)
             }
         }
