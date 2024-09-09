@@ -116,7 +116,8 @@ private fun Header(
         IconImage(
             path = icon,
             size = 120.dp,
-            description = description
+            description = description,
+            color = MaterialTheme.colorScheme.onPrimary
         )
     }
 }

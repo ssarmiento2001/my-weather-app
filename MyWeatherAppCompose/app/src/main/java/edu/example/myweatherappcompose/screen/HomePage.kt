@@ -18,6 +18,7 @@ import androidx.compose.ui.res.stringResource
 import edu.example.myweatherappcompose.R
 import edu.example.myweatherappcompose.data.LocationData
 import edu.example.myweatherappcompose.data.states.HomePageState
+import edu.example.myweatherappcompose.screen.composables.AppBar
 import edu.example.myweatherappcompose.screen.composables.ErrorView
 import edu.example.myweatherappcompose.screen.composables.LoadingView
 import edu.example.myweatherappcompose.screen.composables.ShowWeather

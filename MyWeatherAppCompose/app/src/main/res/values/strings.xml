@@ -15,4 +15,5 @@
     <string name="forecast_page_title">Forecast screen</string>
     <string name="requesting_forecast_data">Fetting forecast data...</string>
     <string name="forecast_error">Error getting forecast</string>
+    <string name="resource_not_found">Not found</string>
 </resources>

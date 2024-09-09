@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -13,6 +12,7 @@ import androidx.compose.ui.res.stringResource
 import edu.example.myweatherappcompose.R
 import edu.example.myweatherappcompose.data.LocationData
 import edu.example.myweatherappcompose.data.states.ForecastState
+import edu.example.myweatherappcompose.screen.composables.AppBar
 import edu.example.myweatherappcompose.screen.composables.ErrorView
 import edu.example.myweatherappcompose.screen.composables.LoadingView
 import edu.example.myweatherappcompose.screen.composables.ShowForecast

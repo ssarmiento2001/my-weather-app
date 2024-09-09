@@ -8,6 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -17,7 +18,7 @@ import edu.example.myweatherappcompose.data.enums.WeatherIcon
 import edu.example.myweatherappcompose.utils.Constants
 
 @Composable
-fun IconImage(path: String, size: Dp, description: String? = null) {
+fun IconImage(path: String, size: Dp, description: String? = null, color: Color) {
     val icon: WeatherIcon = Constants.getWeatherIcon(path)
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Image(
@@ -27,8 +28,8 @@ fun IconImage(path: String, size: Dp, description: String? = null) {
         )
         if (description != null) Text(
             text = description.uppercase(),
-            style = TextStyle(fontSize = 20.sp,fontWeight = FontWeight.Bold),
-            color = MaterialTheme.colorScheme.onPrimary
+            style = TextStyle(fontSize = 15.sp, fontWeight = FontWeight.Bold),
+            color = color
         )
     }
 }
