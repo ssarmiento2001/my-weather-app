@@ -95,7 +95,10 @@ fun Navigation(
             val location = LocationData.fromMap(map)
             ForecastScreen(
                 forecastViewModel = forecastViewModel,
-                locationData = location)
+                locationData = location
+            ) {
+                navHostController.navigateUp()
+            }
         }
     }
 }
